@@ -1,0 +1,12 @@
+{% block content %}
+<h3>Step 1: Complete the task in the tool below</h3>
+<iframe src="{{ external_url }}" width="100%" height="600px" frameborder="0"></iframe>
+
+<h3>Step 2: Download your final result from the tool</h3>
+<p>Then upload it here:</p>
+
+<form method="post" enctype="multipart/form-data">
+    <input type="file" name="upload" required>
+    <button type="submit">Upload and Continue</button>
+</form>
+{% endblock %}
