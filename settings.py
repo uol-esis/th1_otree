@@ -3,7 +3,7 @@ from os import environ
 SESSION_CONFIGS = [
     {
         'name': 'th1nk',
-        'display_name': "Th1nk",
+        'display_name': "Software supporting data literacy",
         'num_demo_participants': 1,
         'app_sequence': ['th1nk_app'],
     },
