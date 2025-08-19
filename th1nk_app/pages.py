@@ -47,80 +47,72 @@ class PreQuestionnaire(Page):
 '''
 
 class SetTreatment(Page):
-    def before_next_page(player, timeout_happened):
-        player.treatment = player.subsession.get_treatment(player)
+    def before_next_page(self, timeout_happened):
+        self.treatment = self.subsession.get_treatment(self)
 
-    @staticmethod
-    def is_displayed(player):
+    def is_displayed(self):
         return False
 
 class TreatmentA(Page):
-    @staticmethod
-    def is_displayed(player):
+    def is_displayed(self):
         form_fields = ['Treatment A']
-        return player.treatment == 'A'
+        return self.treatment == 'A'
 
 class TreatmentB(Page):
-    @staticmethod
-    def is_displayed(player):
+    def is_displayed(self):
         form_fields = ['Treatment B']
-        return player.treatment == 'B'
+        return self.treatment == 'B'
 
 class Intro(Page):
     form_model = 'player'
     timeout_seconds = 120  # 2 Minuten
 
-    @staticmethod
-    def vars_for_template(player):
+    def vars_for_template(self):
         # Erste Zeile aus Excel als Beispiel
-        aufgabe = C.DATA.iloc[0]['Aufgabe']
-        return dict(aufgabe=aufgabe)
+        #aufgabe = C.DATA.iloc[0]['Aufgabe']
+        ausschnitt = C.DATA.head(5).to_html(index=False)
+        return dict(aufgabe=ausschnitt)
 
-    @staticmethod
-    def before_next_page(player, timeout_happened):
+    def before_next_page(self, timeout_happened):
         # Speichere Deadline für die 8 Minuten Bearbeitungszeit
-        player.participant.vars['deadline'] = time.time() + (8 * 60)
-
+        self.participant.vars['deadline'] = time.time() + (8 * 60)
 
 class Questions(Page):
     form_model = 'player'
     form_fields = ['mc1', 'mc2', 'mc3', 'open1', 'open2', 'open3']
 
-    @staticmethod
-    def get_timeout_seconds(player):
-        deadline = player.participant.vars.get('deadline')
+    def get_timeout_seconds(self):
+        deadline = self.participant.vars.get('deadline')
         if deadline:
             remaining = deadline - time.time()
             return max(0, int(remaining))
         return None
 
-    @staticmethod
-    def before_next_page(player, timeout_happened):
+    def before_next_page(self, timeout_happened):
         # Automatische Auswertung Multiple Choice
         correct_answers = {'mc1': 'A', 'mc2': 'B', 'mc3': 'C'}
         score = sum(getattr(player, q) == ans for q, ans in correct_answers.items())
-        player.score_mc = score
+        self.score_mc = score
 
         # Beispiel für offene Fragen – hier nur Länge der Antwort > 0 als "korrekt"
-        open_score = sum(len(getattr(player, q) or '') > 0 for q in ['open1', 'open2', 'open3'])
-        player.score_open = open_score
+        open_score = sum(len(getattr(self, q) or '') > 0 for q in ['open1', 'open2', 'open3'])
+        self.score_open = open_score
 
         if timeout_happened:
-            player.participant.vars['timeout_reached'] = True
+            self.participant.vars['timeout_reached'] = True
         else:
-            player.participant.vars['timeout_reached'] = False
+            self.participant.vars['timeout_reached'] = False
 
 
 class TimeUp(Page):
     form_model = 'player'
-    @staticmethod
-    def is_displayed(player):
-        return player.participant.vars.get('timeout_reached', False)
+
+    def is_displayed(self):
+        return self.participant.vars.get('timeout_reached', False)
 
 class SecondTaskIntro(Page):
-    @staticmethod
-    def is_displayed(player):
-        return not player.participant.vars.get('timeout_reached', False)
+    def is_displayed(self):
+        return not self.participant.vars.get('timeout_reached', False)
 
 #page_sequence = [TaskIntro, TaskQuestions, TimeUp, SecondTaskIntro]
 
