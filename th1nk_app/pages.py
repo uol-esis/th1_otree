@@ -63,7 +63,11 @@ class TreatmentB(Page):
         form_fields = ['Treatment B']
         return self.treatment == 'B'
 
-class Intro(Page):
+class TaskA(Page):
+
+    def is_displayed(self):
+        return self.player.treatment == 1
+
     form_model = 'player'
     timeout_seconds = 120  # 2 Minuten
 
@@ -73,9 +77,19 @@ class Intro(Page):
         ausschnitt = C.DATA.head(5).to_html(index=False)
         return dict(aufgabe=ausschnitt)
 
-    def before_next_page(self, timeout_happened):
+    def before_next_page(self):
         # Speichere Deadline für die 8 Minuten Bearbeitungszeit
         self.participant.vars['deadline'] = time.time() + (8 * 60)
+
+class TaskB(Page):
+    def vars_for_template(self):
+        # Erste Zeile aus Excel als Beispiel
+        #aufgabe = C.DATA.iloc[0]['Aufgabe']
+        ausschnitt = C.DATA.head(5).to_html(index=False)
+        return dict(aufgabe=ausschnitt)
+
+    def is_displayed(self):
+        return self.player.treatment == 2
 
 class Questions(Page):
     form_model = 'player'
@@ -91,7 +105,7 @@ class Questions(Page):
     def before_next_page(self, timeout_happened):
         # Automatische Auswertung Multiple Choice
         correct_answers = {'mc1': 'A', 'mc2': 'B', 'mc3': 'C'}
-        score = sum(getattr(player, q) == ans for q, ans in correct_answers.items())
+        score = sum(getattr(self, q) == ans for q, ans in correct_answers.items())
         self.score_mc = score
 
         # Beispiel für offene Fragen – hier nur Länge der Antwort > 0 als "korrekt"
@@ -103,6 +117,9 @@ class Questions(Page):
         else:
             self.participant.vars['timeout_reached'] = False
 
+class Th1demo(Page):
+    form_model = 'player'
+    form_fields = ['mc1', 'mc2', 'mc3', 'open1', 'open2', 'open3']
 
 class TimeUp(Page):
     form_model = 'player'
@@ -123,7 +140,9 @@ class PostQuestionnaire(Page):
 page_sequence = [
     Introduction,
     PreQuestionnaire,
-    Intro,
+    TaskA,
+    TaskB,
+    Th1demo,
     Questions,
     TimeUp,
     PostQuestionnaire

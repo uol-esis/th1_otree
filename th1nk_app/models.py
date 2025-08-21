@@ -16,14 +16,20 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         #import itertools
         #TREATMENT = itertools.cycle(['A', 'B'])
-        for p in self.get_players():
-            p.treatment = random.choice(C.TREATMENT)
+       # for p in self.get_players():
+         #   p.treatment = random.choice(C.TREATMENT)
+        for i, p in enumerate(self.get_players()):
+            if i % 2 == 0:
+                p.treatment = 1
+            else:
+                p.treatment = 2
 
 class Group(BaseGroup):
     pass
 
 class Player(BasePlayer):
     # Introduction
+    treatment = models.IntegerField()
     prolificID = models.IntegerField(label='Prolific ID')
     age = models.IntegerField(label='Age')
     gender = models.StringField(
