@@ -1,0 +1,10 @@
+{% block content %}
+
+<h2>You have {{ timeout_seconds }} seconds remaining.</h2>
+
+<h2>Let's start with the first task:
+    Your supervisor asks you to look at the following data.
+    He has a few questions about it.</h2>
+<p>{{ aufgabe }}<\p>
+{{ formfields }}
+{% endblock %}

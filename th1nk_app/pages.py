@@ -23,9 +23,28 @@ class PreQuestionnaire(Page):
         'data_communication',
         ]
 
-'''class ToolAndUpload(Page):
+class TreatmentB(Page):
+    def is_displayed(self):
+        form_fields = ['B']
+        return self.treatment == 'B'
+
+class Intro(Page):
     form_model = 'player'
-    form_fields = []
+    timeout_seconds = 2  # TODO hier sollten ca 2 Minuten eingestellt werden -> fürs testen nur verkürzte zeit
+
+class TreatmentA_easy(Page):
+    form_model = 'player'
+    form_fields = ['mc1', 'mc2', 'mc3', 'open1', 'open2', 'open3']
+    timeout_seconds = 5  # TODO hier 8 Minuten einstellen
+
+    def is_displayed(self):
+        return self.player.treatment == 'A'
+        #return self.player.TREATMENT == 'A'
+
+    def vars_for_template(player):
+        # Erste Zeile aus Excel als Beispiel
+        ausschnitt = C.DATA.head(5).to_html(index=False)
+        return dict(aufgabe=ausschnitt)
 
     def vars_for_template(self):
         return {
@@ -44,49 +63,6 @@ class PreQuestionnaire(Page):
             default_storage.save(path, uploaded_file)
             self.player.uploaded_filename = filename
         return super().post()
-'''
-
-class SetTreatment(Page):
-    def before_next_page(self, timeout_happened):
-        self.treatment = self.subsession.get_treatment(self)
-
-    def is_displayed(self):
-        return False
-
-class TreatmentA(Page):
-    def is_displayed(self):
-        form_fields = ['Treatment A']
-        return self.treatment == 'A'
-
-class TreatmentB(Page):
-    def is_displayed(self):
-        form_fields = ['Treatment B']
-        return self.treatment == 'B'
-
-class Intro(Page):
-    form_model = 'player'
-    timeout_seconds = 120  # 2 Minuten
-
-    def vars_for_template(self):
-        # Erste Zeile aus Excel als Beispiel
-        #aufgabe = C.DATA.iloc[0]['Aufgabe']
-        ausschnitt = C.DATA.head(5).to_html(index=False)
-        return dict(aufgabe=ausschnitt)
-
-    def before_next_page(self, timeout_happened):
-        # Speichere Deadline für die 8 Minuten Bearbeitungszeit
-        self.participant.vars['deadline'] = time.time() + (8 * 60)
-
-class Questions(Page):
-    form_model = 'player'
-    form_fields = ['mc1', 'mc2', 'mc3', 'open1', 'open2', 'open3']
-
-    def get_timeout_seconds(self):
-        deadline = self.participant.vars.get('deadline')
-        if deadline:
-            remaining = deadline - time.time()
-            return max(0, int(remaining))
-        return None
 
     def before_next_page(self, timeout_happened):
         # Automatische Auswertung Multiple Choice
@@ -106,25 +82,20 @@ class Questions(Page):
 
 class TimeUp(Page):
     form_model = 'player'
-
-    def is_displayed(self):
-        return self.participant.vars.get('timeout_reached', False)
-
-class SecondTaskIntro(Page):
-    def is_displayed(self):
-        return not self.participant.vars.get('timeout_reached', False)
-
-#page_sequence = [TaskIntro, TaskQuestions, TimeUp, SecondTaskIntro]
+    timeout_seconds = 15 # TODO hier 30 Sekunden einstellen
 
 class PostQuestionnaire(Page):
     form_model = 'player'
     form_fields = ['post_experience', 'difficulties', 'satisfaction']
 
 page_sequence = [
-    Introduction,
-    PreQuestionnaire,
+    #Introduction,
+    #PreQuestionnaire,
     Intro,
-    Questions,
+    TreatmentA_easy,
+    #TreatmentB_easy,
     TimeUp,
+    #TreatmentA_difficult,
+    #TreatmentB_difficult,
     PostQuestionnaire
     ]

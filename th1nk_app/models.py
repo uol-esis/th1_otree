@@ -17,12 +17,15 @@ class Subsession(BaseSubsession):
         #import itertools
         #TREATMENT = itertools.cycle(['A', 'B'])
         for p in self.get_players():
-            p.treatment = random.choice(C.TREATMENT)
+            p.treatment = 'A'
+            #p.treatment = random.choice(C.TREATMENT)
 
 class Group(BaseGroup):
     pass
 
 class Player(BasePlayer):
+    treatment = models.StringField()
+
     # Introduction
     prolificID = models.IntegerField(label='Prolific ID')
     age = models.IntegerField(label='Age')
@@ -87,7 +90,7 @@ class Player(BasePlayer):
 
 #Treatment
     #Multiple Choice
-    mc1 = models.StringField(choices=['A', 'B', 'C'], label='Frage 1')
+    mc1 = models.StringField(choices=['A', 'B', 'C'], label='Wie sehen nach Bearbeitung Ihre Spalten aus?')
     mc2 = models.StringField(choices=['A', 'B', 'C'], label='Frage 2')
     mc3 = models.StringField(choices=['A', 'B', 'C'], label='Frage 3')
 
