@@ -23,23 +23,29 @@ class PreQuestionnaire(Page):
         'data_communication',
         ]
 
-class TreatmentB(Page):
+class TreatmentB_difficult(Page):
+    form_model = 'player'
+    form_fields = ['mc1', 'mc2', 'mc3', 'open1', 'open2', 'open3']
+    timeout_seconds = 30  # TODO hier 8 Minuten einstellen
+
     def is_displayed(self):
-        form_fields = ['B']
-        return self.treatment == 'B'
+        return self.player.treatment == 'B'
+
+    def vars_for_template(self):
+        # Erste Zeile aus Excel als Beispiel
+        ausschnitt = C.DATA.head(5).to_html(index=False)
+        return dict(aufgabe=ausschnitt)
 
 class Intro(Page):
     form_model = 'player'
-    timeout_seconds = 2  # TODO hier sollten ca 2 Minuten eingestellt werden -> fürs testen nur verkürzte zeit
 
 class TreatmentA_difficult(Page):
     form_model = 'player'
     form_fields = ['mc1', 'mc2', 'mc3', 'open1', 'open2', 'open3']
-    timeout_seconds = 10  # TODO hier 8 Minuten einstellen
+    timeout_seconds = 30  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
         return self.player.treatment == 'A'
-        #return self.player.TREATMENT == 'A'
 
     def vars_for_template(self):
         # Erste Zeile aus Excel als Beispiel
@@ -83,7 +89,7 @@ class TreatmentA_difficult(Page):
 
 class TimeUp(Page):
     form_model = 'player'
-    timeout_seconds = 2 # TODO hier 30 Sekunden einstellen
+    timeout_seconds = 25 # TODO hier 30 Sekunden einstellen
 
 class PostQuestionnaire(Page):
     form_model = 'player'
@@ -98,9 +104,9 @@ page_sequence = [
     Intro,
     #TreatmentA_easy,
     #TreatmentB_easy,
-    TimeUp,
+    #TimeUp,
     TreatmentA_difficult,
-    #TreatmentB_difficult,
+    TreatmentB_difficult,
     PostQuestionnaire,
     ThankYou
     ]

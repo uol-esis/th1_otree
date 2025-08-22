@@ -17,8 +17,7 @@ class Subsession(BaseSubsession):
         #import itertools
         #TREATMENT = itertools.cycle(['A', 'B'])
         for p in self.get_players():
-            p.treatment = 'A'
-            #p.treatment = random.choice(C.TREATMENT)
+            p.treatment = random.choice(C.TREATMENT)
 
 class Group(BaseGroup):
     pass
