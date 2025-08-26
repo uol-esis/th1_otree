@@ -3,6 +3,7 @@ import time
 from otree.api import *
 from pathlib import Path
 import pandas as pd
+from django.utils.safestring import mark_safe
 
 class C(BaseConstants):
     NAME_IN_URL = 'th1nk_app'
@@ -17,7 +18,8 @@ class Subsession(BaseSubsession):
         #import itertools
         #TREATMENT = itertools.cycle(['A', 'B'])
         for p in self.get_players():
-            p.treatment = random.choice(C.TREATMENT)
+            #p.treatment = random.choice(C.TREATMENT)
+            p.treatment = "A"
 
 class Group(BaseGroup):
     pass
@@ -87,7 +89,59 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect
     )
 
-#Treatment
+#Treatment A
+#easy
+
+#difficult
+    tool_difficult_problem1 = models.StringField(
+        label="What problem areas do you identify in the raw data and how would you deal with these challenges in each case?",
+        choices=[
+           ["invalid characters" , "Invalid characters: Replace special characters with appropriate values."],
+            ["inconsistent spellings", "Inconsistent spellings in text categories: Standardize them using mapping or text normalization (lowercasing, removing special characters)."],
+            ["missing values", "Missing values: Decide whether to fill in missing entries through imputation or remove rows with too many missing values."]
+        ],
+        widget=widgets.RadioSelect
+    )
+
+    tool_difficult_problem2 = models.StringField(
+        label="What further problem areas do you identify?",
+        choices=[["duplicates","Duplicates: Identify and remove duplicate entries to ensure data quality."],
+            ["no problems", "Data is already completely clean and requires no further processing."],
+           ["missing col names", "Missing column names: add to each column a unique name",]
+        ],
+        widget=widgets.RadioSelect
+    )
+
+    bool_steps1= models.BooleanField(
+        label="Is the processing step <b>remove duplicates</b> necessary to prepare the data for analysis"
+    )
+
+    bool_steps2 = models.BooleanField(
+        label="Is the processing step <b>remove rows with invalid values</b> necessary to prepare the data for analysis"
+    )
+    bool_steps3 = models.BooleanField(
+        label="Is the processing step <b>add column headers</b> necessary to prepare the data for analysis"
+    )
+    bool_steps4 = models.BooleanField(
+        label="Is the processing step <b>resolve multiple headers</b> necessary to prepare the data for analysis"
+    )
+    bool_steps5 = models.BooleanField(
+        label="Is the processing step <b>split cells containing multiple values into new columns</b> necessary to prepare the data for analysis"
+    )
+
+    tool_difficult_col1 = models.StringField(
+        label="Based on the raw data, which column names are most suitable for the transformed data?",
+        choices=[["area", "Area, Main means of transport, Delay due to, Time of day"],
+            ["location", "Location, Vehicle, Time of day, Minutes"],
+            ["city", "City, Means of transport, Cause, Time, Duration"],
+           ["accident", "Accident location, Participant, Cause, Rescue time"]
+        ],
+        widget=widgets.RadioSelect
+    )
+
+    score = models.IntegerField()
+
+#Treatment B
 #easy
 #wie sehen die spaltenüberschriften aus?
 #was hat sich verändert?
@@ -98,9 +152,8 @@ class Player(BasePlayer):
     mc2 = models.StringField(choices=['A', 'B', 'C'], label='Frage 2')
     mc3 = models.StringField(choices=['A', 'B', 'C'], label='Frage 3')
 
-#difficult
-#wie sehen die spaltenüberschriften aus?
-#warum hat die autogenerierung nicht geklappt?
+    #difficult
+
     #Offene Fragen
     open1 = models.LongStringField(label='Antwort 1')
     open2 = models.LongStringField(label='Antwort 2')
