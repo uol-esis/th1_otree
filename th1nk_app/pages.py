@@ -8,7 +8,7 @@ from .models import C, Subsession, Group, Player
 
 class Introduction(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender', 'prolificID', 'employment_status', 'job_type', 'education']
+    form_fields = ['prolificID', 'age', 'gender', 'employment_status', 'job_type', 'education']
 
 class PreQuestionnaire(Page):
     form_model = 'player'
@@ -23,21 +23,34 @@ class PreQuestionnaire(Page):
         'data_communication',
         ]
 
-class TreatmentB_difficult(Page):
+class Intro(Page):
     form_model = 'player'
-    form_fields = ['mc1', 'mc2', 'mc3', 'open1', 'open2', 'open3']
+
+class TreatmentA_easy(Page):
+    form_model = 'player'
+    form_fields = []
     timeout_seconds = 30  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
-        return self.player.treatment == 'B'
+        return self.player.treatment == 'A'
 
     def vars_for_template(self):
         # Erste Zeile aus Excel als Beispiel
-        ausschnitt = C.DATA.head(5).to_html(index=False)
+        ausschnitt = C.DATA_EASY.head(5).to_html(index=False)
         return dict(aufgabe=ausschnitt)
 
-class Intro(Page):
+class TreatmentB_easy(Page):
     form_model = 'player'
+    form_fields = []
+    timeout_seconds = 30  # TODO hier 8 Minuten einstellen
+
+    def is_displayed(self):
+        return self.player.treatment == 'A'
+
+    def vars_for_template(self):
+        # Erste Zeile aus Excel als Beispiel
+        ausschnitt = C.DATA_EASY.head(5).to_html(index=False)
+        return dict(aufgabe=ausschnitt)
 
 class TreatmentA_difficult(Page):
     form_model = 'player'
@@ -49,7 +62,20 @@ class TreatmentA_difficult(Page):
 
     def vars_for_template(self):
         # Erste Zeile aus Excel als Beispiel
-        ausschnitt = C.DATA.head(5).to_html(index=False)
+        ausschnitt = C.DATA_DIFFICULT.head(5).to_html(index=False)
+        return dict(aufgabe=ausschnitt)
+
+class TreatmentB_difficult(Page):
+    form_model = 'player'
+    form_fields = ['mc1', 'mc2', 'mc3', 'open1', 'open2', 'open3']
+    timeout_seconds = 30  # TODO hier 8 Minuten einstellen
+
+    def is_displayed(self):
+        return self.player.treatment == 'B'
+
+    def vars_for_template(self):
+        # Erste Zeile aus Excel als Beispiel
+        ausschnitt = C.DATA_DIFFICULT.head(5).to_html(index=False)
         return dict(aufgabe=ausschnitt)
 
     '''

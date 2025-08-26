@@ -9,8 +9,10 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
     TREATMENT = ['A', 'B']
-    EXCEL_FILE = EXCEL_FILE = Path(__file__).parent / 'static' / 'data' / 'dataset_difficult.xlsx'
-    DATA = pd.read_excel(EXCEL_FILE)
+    EXCEL_FILE_DIFFICULT = EXCEL_FILE_DIFFICULT = Path(__file__).parent / 'static' / 'data' / 'dataset_difficult.xlsx'
+    DATA_DIFFICULT = pd.read_excel(EXCEL_FILE_DIFFICULT)
+    EXCEL_FILE_EASY = EXCEL_FILE_EASY = Path(__file__).parent / 'static' / 'data' / 'dataset_easy.xlsx'
+    DATA_EASY = pd.read_excel(EXCEL_FILE_EASY)
 
 class Subsession(BaseSubsession):
     def creating_session(self):
