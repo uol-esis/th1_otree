@@ -3,14 +3,17 @@ import time
 from otree.api import *
 from pathlib import Path
 import pandas as pd
+from django.utils.safestring import mark_safe
 
 class C(BaseConstants):
     NAME_IN_URL = 'th1nk_app'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
     TREATMENT = ['A', 'B']
-    EXCEL_FILE = EXCEL_FILE = Path(__file__).parent / 'static' / 'data' / 'Testdaten_Verkehr.xlsx'
-    DATA = pd.read_excel(EXCEL_FILE)
+    EXCEL_FILE_DIFFICULT = EXCEL_FILE_DIFFICULT = Path(__file__).parent / 'static' / 'data' / 'dataset_difficult.xlsx'
+    DATA_DIFFICULT = pd.read_excel(EXCEL_FILE_DIFFICULT)
+    EXCEL_FILE_EASY = EXCEL_FILE_EASY = Path(__file__).parent / 'static' / 'data' / 'dataset_easy.xlsx'
+    DATA_EASY = pd.read_excel(EXCEL_FILE_EASY)
 
 class Subsession(BaseSubsession):
     def creating_session(self):
@@ -89,23 +92,38 @@ class Player(BasePlayer):
 
 #Treatment
 #easy
-#wie sehen die spaltenüberschriften aus?
-#was hat sich verändert?
-    #antworten: leere zeilen vorhanden, falsches datenformat, ungültiger wertebereich,
 
-    #Multiple Choice
-    mc1 = models.StringField(choices=['A', 'B', 'C'], label='Wie sehen nach Bearbeitung Ihre Spalten aus?')
-    mc2 = models.StringField(choices=['A', 'B', 'C'], label='Frage 2')
-    mc3 = models.StringField(choices=['A', 'B', 'C'], label='Frage 3')
+    tool_easy_checkout = models.StringField(choices= [
+        mark_safe('<img src="/static/data/false_1.png" width="100">'),
+        mark_safe('<img src="/static/data/false_2.png" width="100">'),
+        mark_safe('<img src="/static/data/correct.png" width="100">'),
+        mark_safe('<img src="/static/data/false_3.png" width="100">')
+        ],
+        label='How does the result columns look like?',
+        widget=widgets.RadioSelect
+    )
+
+    tool_easy_problem1 = models.StringField(choices= [
+        'The values are not properly formatted.',
+        'The values depend on multiple attributes that are not clearly structured.',
+        'The structure is not normalized.',
+        'The structure is flat and clean, but the cells contents too much information.'
+        ],
+        label='Why is the nested structure of the dataset problematic?',
+        widget=widgets.RadioSelect
+    )
+
+    tool_easy_problem2 = models.StringField(choices= [
+        'The structure got more complex.',
+        'The attributes now extend over only one column.',
+        'Many duplicates were created.',
+        'The data format has changed.'
+        ],
+        label='What has changed in the transformation process?',
+        widget=widgets.RadioSelect
+    )
 
 #difficult
-#wie sehen die spaltenüberschriften aus?
-#warum hat die autogenerierung nicht geklappt?
-    #Offene Fragen
-    open1 = models.LongStringField(label='Antwort 1')
-    open2 = models.LongStringField(label='Antwort 2')
-    open3 = models.LongStringField(label='Antwort 3')
-
     # Post-questionnaire
     post_experience = models.LongStringField(
         label="Please describe your experience using the tool.",
