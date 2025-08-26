@@ -51,7 +51,7 @@ class TreatmentA_difficult(Page):
     form_model = 'player'
     form_fields = [
         'tool_difficult_problem1', 'tool_difficult_problem2',
-        'bool_steps1', 'bool_steps2', 'bool_steps3', 'bool_steps4', 'bool_steps5',
+        'tool_difficult_steps1', 'tool_difficult_steps2', 'tool_difficult_steps3', 'tool_difficult_steps4', 'tool_difficult_steps5',
         'tool_difficult_col1'
     ]
     timeout_seconds = 600  # TODO hier 8 Minuten einstellen
@@ -69,7 +69,7 @@ class TreatmentA_difficult(Page):
         correct_answers = {
             'tool_difficult_problem1': 'invalid characters',
             'tool_difficult_problem2': 'missing col names',
-            'bool_steps1' : False, 'bool_steps2' : True, 'bool_steps3': True, 'bool_steps4': False, 'bool_steps5': True,
+            'tool_difficult_steps1' : False, 'tool_difficult_steps2' : True, 'tool_difficult_steps3': True, 'tool_difficult_steps4': False, 'tool_difficult_steps5': True,
             'tool_difficult_col1': 'city'
         }
         score = 0

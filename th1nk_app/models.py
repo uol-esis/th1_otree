@@ -112,20 +112,20 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect
     )
 
-    bool_steps1= models.BooleanField(
+    tool_difficult_steps1= models.BooleanField(
         label="Is the processing step <b>remove duplicates</b> necessary to prepare the data for analysis"
     )
 
-    bool_steps2 = models.BooleanField(
+    tool_difficult_steps2 = models.BooleanField(
         label="Is the processing step <b>remove rows with invalid values</b> necessary to prepare the data for analysis"
     )
-    bool_steps3 = models.BooleanField(
+    tool_difficult_steps3 = models.BooleanField(
         label="Is the processing step <b>add column headers</b> necessary to prepare the data for analysis"
     )
-    bool_steps4 = models.BooleanField(
+    tool_difficult_steps4 = models.BooleanField(
         label="Is the processing step <b>resolve multiple headers</b> necessary to prepare the data for analysis"
     )
-    bool_steps5 = models.BooleanField(
+    tool_difficult_steps5 = models.BooleanField(
         label="Is the processing step <b>split cells containing multiple values into new columns</b> necessary to prepare the data for analysis"
     )
 
