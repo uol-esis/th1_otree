@@ -9,7 +9,7 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
     TREATMENT = ['A', 'B']
-    EXCEL_FILE = EXCEL_FILE = Path(__file__).parent / 'static' / 'data' / 'Testdaten_Verkehr.xlsx'
+    EXCEL_FILE = EXCEL_FILE = Path(__file__).parent / 'static' / 'data' / 'dataset_difficult.xlsx'
     DATA = pd.read_excel(EXCEL_FILE)
 
 class Subsession(BaseSubsession):
