@@ -1,19 +1,22 @@
 {% block content %}
 
-<h2>Let's start with the first task:</h2>
-<h4>Your supervisor asks you to look at the following data.
-    He has a few questions about it.</h4>
+<div style="display:flex; flex-direction:column; gap:30px;">
+    <h2>Let's start with the first task:</h2>
+    <h4>Your supervisor asks you to look at the following data.
+        He has a few questions about it.</h4>
+    
+    <h4>Please transform the data from the file into a database-compliant data record to further analyze it.</h4>
+    
+    {{ aufgabe }}
+    
+    <h3>Use the following technical tool for this purpose:</h3>
+    
+    <iframe src="https://pg-doener-prod.virt.uni-oldenburg.de" width="100%" height="600px" frameborder="0"></iframe>
+    
+    <h4>After completing the task, please answer the following questions:</h4>
+</div>
+    {{ formfields }}
+    {{ next_button }}
 
-<h4>Please transform the data from the file into a database-compliant data record to further analyze it.</h4>
-
-{{ aufgabe }}
-
-<h3>Use the following technical tool for this purpose:</h3>
-
-<iframe src="https://pg-doener-prod.virt.uni-oldenburg.de" width="100%" height="600px" frameborder="0"></iframe>
-
-<h4>After completing the task, please answer the following questions:</h4>
-{{ formfields }}
-{{ next_button }}
 
 {% endblock %}
