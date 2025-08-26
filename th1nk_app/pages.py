@@ -35,7 +35,7 @@ class Intro(Page):
 class TreatmentA_easy(Page):
     form_model = 'player'
     form_fields = ['tool_easy_checkout', 'tool_easy_problem1', 'tool_easy_problem2']
-    timeout_seconds = 30  # TODO hier 8 Minuten einstellen
+    timeout_seconds = 300  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
         return self.player.treatment == 'A'
@@ -44,6 +44,18 @@ class TreatmentA_easy(Page):
         # Erste Zeile aus Excel als Beispiel
         ausschnitt = C.DATA_EASY.head(5).to_html(index=False)
         return dict(aufgabe=ausschnitt)
+    
+    def before_next_page(self):
+        correct_answers = {
+            'tool_easy_checkout': 'C',
+            'tool_easy_problem1': 'multiple attributes',
+            'tool_easy_problem2': 'one col attributes'
+        }
+        score = 0
+        for field, should_be_true in correct_answers.items():
+            if getattr(self.player, field) == should_be_true:
+                score += 1
+        self.player.score += score
 
 
 class TreatmentB_easy(Page):
@@ -75,6 +87,31 @@ class TreatmentA_difficult(Page):
         # Erste Zeile aus Excel als Beispiel
         ausschnitt = C.DATA_DIFFICULT.head(5).to_html(index=False)
         return dict(aufgabe=ausschnitt)
+    
+    def before_next_page(self):
+        correct_answers = {
+            'tool_difficult_problem1': 'invalid characters',
+            'tool_difficult_problem2': 'missing col names',
+            'tool_difficult_steps1' : False, 'tool_difficult_steps2' : True, 'tool_difficult_steps3': True, 'tool_difficult_steps4': False, 'tool_difficult_steps5': True,
+            'tool_difficult_col1': 'city'
+        }
+        score = 0
+        for field, should_be_true in correct_answers.items():
+            if getattr(self.player, field) == should_be_true:
+                score += 1
+        self.player.score += score
+
+        end_time = time.time()
+        start_time = self.player.participant.vars.get('start_time', end_time)
+        total_duration = end_time - start_time  # Zeit in Sekunden
+        self.player.participant.vars['total_duration'] = total_duration
+
+        base_pay = 1
+        score_bonus = self.player.score * 0.1
+        time_penalty = (total_duration / 60) * 0.1  # z.B. 0.10 pro Minute
+        payoff_value = base_pay + score_bonus - time_penalty 
+        print(payoff_value)
+        self.player.payoff = cu(payoff_value)
 
 class TreatmentB_difficult(Page):
     form_model = 'player'
@@ -89,31 +126,7 @@ class TreatmentB_difficult(Page):
         ausschnitt = C.DATA_DIFFICULT.head(5).to_html(index=False)
         return dict(aufgabe=ausschnitt)
     
-    #check if all correct awnsers are selected
-    def before_next_page(self):
-        correct_answers = {
-            'tool_difficult_problem1': 'invalid characters',
-            'tool_difficult_problem2': 'missing col names',
-            'tool_difficult_steps1' : False, 'tool_difficult_steps2' : True, 'tool_difficult_steps3': True, 'tool_difficult_steps4': False, 'tool_difficult_steps5': True,
-            'tool_difficult_col1': 'city'
-        }
-        score = 0
-        for field, should_be_true in correct_answers.items():
-            if getattr(self.player, field) == should_be_true:
-                score += 1
-        self.player.score = score
-
-        end_time = time.time()
-        start_time = self.player.participant.vars.get('start_time', end_time)
-        total_duration = end_time - start_time  # Zeit in Sekunden
-        self.player.participant.vars['total_duration'] = total_duration
-
-        base_pay = 1
-        score_bonus = self.player.score * 0.1
-        time_penalty = (total_duration / 60) * 0.1  # z.B. 0.10 pro Minute
-        payoff_value = base_pay + score_bonus - time_penalty 
-        print(payoff_value)
-        self.player.payoff = cu(payoff_value)
+    
 
     '''
     def vars_for_template(self):
