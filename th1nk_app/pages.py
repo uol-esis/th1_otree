@@ -28,7 +28,7 @@ class Intro(Page):
 
 class TreatmentA_easy(Page):
     form_model = 'player'
-    form_fields = []
+    form_fields = ['tool_easy_checkout', 'tool_easy_problem1', 'tool_easy_problem2']
     timeout_seconds = 30  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
@@ -54,7 +54,7 @@ class TreatmentB_easy(Page):
 
 class TreatmentA_difficult(Page):
     form_model = 'player'
-    form_fields = ['mc1', 'mc2', 'mc3', 'open1', 'open2', 'open3']
+    form_fields = []
     timeout_seconds = 30  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
@@ -67,7 +67,7 @@ class TreatmentA_difficult(Page):
 
 class TreatmentB_difficult(Page):
     form_model = 'player'
-    form_fields = ['mc1', 'mc2', 'mc3', 'open1', 'open2', 'open3']
+    form_fields = []
     timeout_seconds = 30  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
@@ -128,7 +128,7 @@ page_sequence = [
     #Introduction,
     #PreQuestionnaire,
     Intro,
-    #TreatmentA_easy,
+    TreatmentA_easy,
     #TreatmentB_easy,
     #TimeUp,
     TreatmentA_difficult,
