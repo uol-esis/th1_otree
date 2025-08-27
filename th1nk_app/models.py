@@ -19,6 +19,7 @@ class C(BaseConstants):
 class Subsession(BaseSubsession):
     def creating_session(self):
         #import itertools
+        #A = Tool, B = Excel
         #TREATMENT = itertools.cycle(['A', 'B'])
         for p in self.get_players():
             #p.treatment = random.choice(C.TREATMENT)
@@ -29,6 +30,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     treatment = models.StringField()
+    score = models.IntegerField(initial=0)
 
     # Introduction
     prolificID = models.IntegerField(label='Prolific ID')
@@ -142,36 +144,34 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect
     )
 
-    score = models.IntegerField()
-
 #Treatment B
 #easy
 
     tool_easy_checkout = models.StringField(choices= [
-        mark_safe('<img src="/static/data/false_1.png" width="100">'),
-        mark_safe('<img src="/static/data/false_2.png" width="100">'),
-        mark_safe('<img src="/static/data/correct.png" width="100">'),
-        mark_safe('<img src="/static/data/false_3.png" width="100">')
+        ["A" ,mark_safe(' <img src="/static/data/false_1.png" width="400" style="margin:15px;"> ')],
+        ["B",mark_safe(' <img src="/static/data/false_2.png" width="400" style="margin:15px;"> ')],
+        ["C", mark_safe(' <img src="/static/data/correct.png" width="400" style="margin:15px;"> ')],
+        ["D", mark_safe(' <img src="/static/data/false_3.png" width="400" style="margin:15px;" > ')],
         ],
         label='How does the result columns look like?',
         widget=widgets.RadioSelect
     )
 
     tool_easy_problem1 = models.StringField(choices= [
-        'The values are not properly formatted.',
-        'The values depend on multiple attributes that are not clearly structured.',
-        'The structure is not normalized.',
-        'The structure is flat and clean, but the cells contents too much information.'
+        ['false format', 'The values are not properly formatted.'],
+        ['multiple attributes' , 'The values depend on multiple attributes that are not clearly structured.'],
+        ['not normalized', 'The structure is not normalized.'],
+        ['flat structure','The structure is flat and clean, but the cells contents too much information.']
         ],
         label='Why is the nested structure of the dataset problematic?',
         widget=widgets.RadioSelect
     )
 
     tool_easy_problem2 = models.StringField(choices= [
-        'The structure got more complex.',
-        'The attributes now extend over only one column.',
-        'Many duplicates were created.',
-        'The data format has changed.'
+       ['complex structure' ,'The structure got more complex.'],
+        ['one col attributes', 'The attributes now extend over only one column.'],
+        ['duplicates', 'Many duplicates were created.'],
+        ['changed format', 'The data format has changed.']
         ],
         label='What has changed in the transformation process?',
         widget=widgets.RadioSelect
