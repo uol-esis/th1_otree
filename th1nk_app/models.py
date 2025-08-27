@@ -94,6 +94,19 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect
     )
 
+#Attention checks
+    data_attention_1 = models.StringField(
+        label="To show you are paying attention, please select the third answer for this question.",
+        choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the meaning of data.", "I'm capable of understanding the background of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
+        widget=widgets.RadioSelect
+    )
+
+    data_attention_2 = models.StringField(
+            label="Which of the following is a common way to organize data?",
+            choices=["By throwing papers randomly on the floor", "In rows and columns", "By using only your memory without writing anything down", "In drawn doodles on a napkin", "By singing the numbers out loud instead of writing them down"],
+            widget=widgets.RadioSelect
+    )
+
 #Treatment A
 #easy
 
@@ -102,8 +115,8 @@ class Player(BasePlayer):
         label="What problem areas do you identify in the raw data and how would you deal with these challenges in each case?",
         choices=[
            ["invalid characters" , "Invalid characters: Replace special characters with appropriate values."],
-            ["inconsistent spellings", "Inconsistent spellings in text categories: Standardize them using mapping or text normalization (lowercasing, removing special characters)."],
-            ["missing values", "Missing values: Decide whether to fill in missing entries through imputation or remove rows with too many missing values."]
+           ["inconsistent spellings", "Inconsistent spellings in text categories: Standardize them using mapping or text normalization (lowercasing, removing special characters)."],
+           ["missing values", "Missing values: Decide whether to fill in missing entries through imputation or remove rows with too many missing values."]
         ],
         widget=widgets.RadioSelect
     )
