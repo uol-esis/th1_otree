@@ -24,7 +24,9 @@ class PreQuestionnaire(Page):
         'data_transformation',
         'data_metadata',
         'data_visualization',
+        'data_attention_1',
         'data_interactive',
+        'data_attention_2',
         'data_interpretation',
         'data_communication',
         ]
