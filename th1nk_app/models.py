@@ -23,7 +23,7 @@ class Subsession(BaseSubsession):
         #TREATMENT = itertools.cycle(['A', 'B'])
         for p in self.get_players():
             #p.treatment = random.choice(C.TREATMENT)
-            p.treatment = "A"
+            p.treatment = "B"
 
 class Group(BaseGroup):
     pass
@@ -54,65 +54,94 @@ class Player(BasePlayer):
 
     # Pre-questionnaire
     data_conversion = models.StringField(
-        label="Data conversion (modifying the format in which the data is stored in order to make it more usable)",
+        label="<h5> Data conversion (modifying the format in which the data is stored in order to make it more usable) </h5>",
         choices=["I know the tools and practices used in data conversion.", "I understand the impacts that converting data may have on its use.", "I'm capable of converting data in order to increase its use value.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
         widget=widgets.RadioSelect
     )
     data_cleansing = models.StringField(
-        label="Data cleansing (modifying data in order to reduce any errors which could affect quality)",
+        label=" <h5> Data cleansing (modifying data in order to reduce any errors which could affect quality) </h5>",
         choices=["I know the tools and practices used in data cleansing.", "I understand the effects and limits that data cleansing may have on its ability to be used.", "I'm capable of converting data in order to increase its use value.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
         widget=widgets.RadioSelect
     )
     data_transformation = models.StringField(
-        label="Data transformation (organizing, structuring, compiling and aggregating data in order to aid in analysis and decision making)",
+        label="<h5> Data transformation (organizing, structuring, compiling and aggregating data in order to aid in analysis and decision making) </h5>",
         choices=["I know the tools and practices used in data transformation.", "I understand the methods used in data transformation and the consequences of using different tools and practices.", "I'm capable of transforming data in order to increase its value for analysis and decision making.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
         widget=widgets.RadioSelect
     )
     data_metadata = models.StringField(
-        label="Creating business metadata (adding information to data, in particular to document any transformation, in order to aid in data classification, sharing and reuse)",
+        label="<h5> Creating business metadata (adding information to data, in particular to document any transformation, in order to aid in data classification, sharing and reuse) </h5>",
         choices=["I understand the concept of business metadata.", "I understand the concept of metadata and its use in contextualizing data.", "I'm capable of creating business metadata in order to aid in data classification, sharing and reuse.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
         widget=widgets.RadioSelect
     )
     data_visualization = models.StringField(
-         label="Creating data visualizations (creating graphical representations in order to communicate the significance of data)",
+         label= "<h5> Creating data visualizations (creating graphical representations in order to communicate the significance of data) </h5>",
          choices=["I understand the different types of data visualizations.", "I understand the consequences that the choice of data visualization has on its ability to be communicated.", "I'm capable of creating graphical representations which communicate the significance of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
          widget=widgets.RadioSelect
     )
     data_interactive = models.StringField(
-         label="Interactive data querying (progressively understanding the significance of data by using interactive analysis to derive an explanation of the reality it represents)",
+         label="<h5> Interactive data querying (progressively understanding the significance of data by using interactive analysis to derive an explanation of the reality it represents) </h5>",
          choices=["I understand the methods and tools used to interactively query data.", "I understand the possibilities and limits of interactive data queries.", "I'm capable of interactively querying data in order to understand its significance.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
          widget=widgets.RadioSelect
     )
     data_interpretation = models.StringField(
-         label="Data interpretation (interpreting data in order to understand its significance and derive and explanation of the reality it represents)",
+         label="<h5> Data interpretation (interpreting data in order to understand its significance and derive and explanation of the reality it represents) </h5>",
          choices=["I understand the methods and tools used to interpret data.", "I understand how interpreting data can explain reality.", "I'm capable of interpreting data in order to understand its significance.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
          widget=widgets.RadioSelect
     )
     data_communication = models.StringField(
-        label="Communicating the significance of data (sharing the significance of data with other people, verbally or in writing)",
+        label="<h5> Communicating the significance of data (sharing the significance of data with other people, verbally or in writing) </h5>",
         choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the significance of data.", "I'm capable of communicating the significance of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
         widget=widgets.RadioSelect
     )
 
 #Attention checks
     data_attention_1 = models.StringField(
-        label="To show you are paying attention, please select the third answer for this question.",
+        label="<h5> To show you are paying attention, please select the third answer for this question. </h5>",
         choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the meaning of data.", "I'm capable of understanding the background of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
         widget=widgets.RadioSelect
     )
 
     data_attention_2 = models.StringField(
-            label="Which of the following is a common way to organize data?",
+            label="<h5> Which of the following is a common way to organize data? </h5>",
             choices=["By throwing papers randomly on the floor", "In rows and columns", "By using only your memory without writing anything down", "In drawn doodles on a napkin", "By singing the numbers out loud instead of writing them down"],
             widget=widgets.RadioSelect
     )
 
 #Treatment A
 #easy
+    tool_easy_checkout = models.StringField(choices= [
+        ["A" ,mark_safe(' <img src="/static/data/false_1.png" width="400" style="margin:15px;"> ')],
+        ["B",mark_safe(' <img src="/static/data/false_2.png" width="400" style="margin:15px;"> ')],
+        ["C", mark_safe(' <img src="/static/data/correct.png" width="400" style="margin:15px;"> ')],
+        ["D", mark_safe(' <img src="/static/data/false_3.png" width="400" style="margin:15px;" > ')],
+        ],
+        label='<h5> How does the result columns look like? </h5>',
+        widget=widgets.RadioSelect
+    )
+
+    tool_easy_problem1 = models.StringField(choices= [
+        ['false format', 'The values are not properly formatted.'],
+        ['multiple attributes' , 'The values depend on multiple attributes that are not clearly structured.'],
+        ['not normalized', 'The structure is not normalized.'],
+        ['flat structure','The structure is flat and clean, but the cells contents too much information.']
+        ],
+        label='<h5> Why is the nested structure of the dataset problematic? </h5>',
+        widget=widgets.RadioSelect
+    )
+
+    tool_easy_problem2 = models.StringField(choices= [
+       ['complex structure' ,'The structure got more complex.'],
+        ['one col attributes', 'The attributes now extend over only one column.'],
+        ['duplicates', 'Many duplicates were created.'],
+        ['changed format', 'The data format has changed.']
+        ],
+        label='<h5> What has changed in the transformation process? </h5>',
+        widget=widgets.RadioSelect
+    )
 
 #difficult
     tool_difficult_problem1 = models.StringField(
-        label="What problem areas do you identify in the raw data and how would you deal with these challenges in each case?",
+        label="<h5> What problem areas do you identify in the raw data and how would you deal with these challenges in each case? </h5>",
         choices=[
            ["invalid characters" , "Invalid characters: Replace special characters with appropriate values."],
            ["inconsistent spellings", "Inconsistent spellings in text categories: Standardize them using mapping or text normalization (lowercasing, removing special characters)."],
@@ -122,7 +151,7 @@ class Player(BasePlayer):
     )
 
     tool_difficult_problem2 = models.StringField(
-        label="What further problem areas do you identify?",
+        label="<h5> What further problem areas do you identify? </h5>",
         choices=[["duplicates","Duplicates: Identify and remove duplicate entries to ensure data quality."],
             ["no problems", "Data is already completely clean and requires no further processing."],
            ["missing col names", "Missing column names: add to each column a unique name",]
@@ -131,24 +160,24 @@ class Player(BasePlayer):
     )
 
     tool_difficult_steps1= models.BooleanField(
-        label="Is the processing step <b>remove duplicates</b> necessary to prepare the data for analysis"
+        label="<h5> Is the processing step <b>remove duplicates</b> necessary to prepare the data for analysis </h5>"
     )
 
     tool_difficult_steps2 = models.BooleanField(
-        label="Is the processing step <b>remove rows with invalid values</b> necessary to prepare the data for analysis"
+        label="<h5>  Is the processing step <b>remove rows with invalid values</b> necessary to prepare the data for analysis </h5>"
     )
     tool_difficult_steps3 = models.BooleanField(
-        label="Is the processing step <b>add column headers</b> necessary to prepare the data for analysis"
+        label="<h5> Is the processing step <b>add column headers</b> necessary to prepare the data for analysis </h5>"
     )
     tool_difficult_steps4 = models.BooleanField(
-        label="Is the processing step <b>resolve multiple headers</b> necessary to prepare the data for analysis"
+        label="<h5> Is the processing step <b>resolve multiple headers</b> necessary to prepare the data for analysis </h5>"
     )
     tool_difficult_steps5 = models.BooleanField(
-        label="Is the processing step <b>split cells containing multiple values into new columns</b> necessary to prepare the data for analysis"
+        label=" <h5> Is the processing step <b>split cells containing multiple values into new columns</b> necessary to prepare the data for analysis </h5>"
     )
 
     tool_difficult_col1 = models.StringField(
-        label="Based on the raw data, which column names are most suitable for the transformed data?",
+        label="<h5> Based on the data, which column names are most suitable for the transformed data? </h5>",
         choices=[["area", "Area, Main means of transport, Delay due to, Time of day"],
             ["location", "Location, Vehicle, Time of day, Minutes"],
             ["city", "City, Means of transport, Cause, Time, Duration"],
@@ -160,37 +189,37 @@ class Player(BasePlayer):
 #Treatment B
 #easy
 
-    tool_easy_checkout = models.StringField(choices= [
-        ["A" ,mark_safe(' <img src="/static/data/false_1.png" width="400" style="margin:15px;"> ')],
-        ["B",mark_safe(' <img src="/static/data/false_2.png" width="400" style="margin:15px;"> ')],
-        ["C", mark_safe(' <img src="/static/data/correct.png" width="400" style="margin:15px;"> ')],
-        ["D", mark_safe(' <img src="/static/data/false_3.png" width="400" style="margin:15px;" > ')],
+
+
+#difficult
+    excel_difficult_problem1 = models.StringField(
+        label="<h5> What problem areas do you identify in the raw data and how would you deal with these challenges in each case? </h5>",
+        choices=[
+           ["invalid characters" , "Invalid characters: Replace special characters with appropriate values."],
+           ["inconsistent spellings", "Inconsistent spellings in text categories: Standardize them using mapping or text normalization (lowercasing, removing special characters)."],
+           ["missing values", "Missing values: Decide whether to fill in missing entries through imputation or remove rows with too many missing values."]
         ],
-        label='How does the result columns look like?',
         widget=widgets.RadioSelect
     )
 
-    tool_easy_problem1 = models.StringField(choices= [
-        ['false format', 'The values are not properly formatted.'],
-        ['multiple attributes' , 'The values depend on multiple attributes that are not clearly structured.'],
-        ['not normalized', 'The structure is not normalized.'],
-        ['flat structure','The structure is flat and clean, but the cells contents too much information.']
+    excel_difficult_problem2 = models.StringField(
+        label="<h5> What further problem areas do you identify? </h5>",
+        choices=[["duplicates","Duplicates: Identify and remove duplicate entries to ensure data quality."],
+            ["no problems", "Data is already completely clean and requires no further processing."],
+           ["missing col names", "Missing column names: add to each column a unique name",]
         ],
-        label='Why is the nested structure of the dataset problematic?',
         widget=widgets.RadioSelect
     )
 
-    tool_easy_problem2 = models.StringField(choices= [
-       ['complex structure' ,'The structure got more complex.'],
-        ['one col attributes', 'The attributes now extend over only one column.'],
-        ['duplicates', 'Many duplicates were created.'],
-        ['changed format', 'The data format has changed.']
+    excel_difficult_col1 = models.StringField(
+        label="<h5> Based on the data, which column names are most suitable for the transformed data? </h5>",
+        choices=[["area", "Area, Main means of transport, Delay due to, Time of day"],
+            ["location", "Location, Vehicle, Time of day, Minutes"],
+            ["city", "City, Means of transport, Cause, Time, Duration"],
+           ["accident", "Accident location, Participant, Cause, Rescue time"]
         ],
-        label='What has changed in the transformation process?',
         widget=widgets.RadioSelect
     )
-
-    #difficult
 
     #Offene Fragen
     open1 = models.LongStringField(label='Antwort 1')
