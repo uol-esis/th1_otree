@@ -1,16 +1,23 @@
 {% block content %}
 
-<h2>Let's start with the first task:</h2>
-<h4>Your supervisor asks you to look at the following data.
-   He has a few questions about it.</h4>
-
-<h4>Please transform the data from the file into a database-compliant data record to further analyze it.</h4>
-
-{{ aufgabe }}
-
-<h3>Use Excel for this purpose:</h3>
-
-{{ formfields }}
-{{ next_button }}
+<div style="display:flex; flex-direction:column; gap:30px;">
+   <h2>Let's start with the first task:</h2>
+   <h4>Your supervisor asks you to look at the following data.
+      He has a few questions about it.</h4>
+   
+   <h4>Please transform the data from the file into a database-compliant data record to further analyze it.</h4>
+   
+   {{ aufgabe }}
+   
+   <div>
+      <h4>Please use this data set:</h4>
+      <a href="{% static 'data/city_data.xlsx' %}" download >city_data.xlsx</a>
+   </div>
+   
+   <h3>Use Excel for this purpose:</h3>
+   
+   {{ formfields }}
+   {{ next_button }}
+</div>
 
 {% endblock %}
