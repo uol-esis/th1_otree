@@ -122,8 +122,10 @@ class TreatmentA_difficult(Page):
 
 class TreatmentB_difficult(Page):
     form_model = 'player'
-    form_fields = ['excel_difficult_problem1', 'excel_difficult_problem2', 'excel_difficult_col1', 'data_attention_6']
-    timeout_seconds = 30  # TODO hier 8 Minuten einstellen
+    form_fields = ['excel_difficult_problem1', 'excel_difficult_problem2',
+                   'excel_difficult_steps1',  'excel_difficult_steps2',  'excel_difficult_steps3',  'excel_difficult_steps4',  'excel_difficult_steps5',
+                    'excel_difficult_col1', 'data_attention_6']
+    timeout_seconds = 300  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
         return self.player.treatment == 'B'
@@ -137,6 +139,11 @@ class TreatmentB_difficult(Page):
         correct_answers = {
             'excel_difficult_problem1': 'invalid characters', 
             'excel_difficult_problem2': 'missing col names', 
+            'excel_difficult_steps1': False,
+            'excel_difficult_steps1': True,
+            'excel_difficult_steps1': False,
+            'excel_difficult_steps1': True,
+            'excel_difficult_steps1': False,
             'excel_difficult_col1': 'city'
         }
         score = 0
