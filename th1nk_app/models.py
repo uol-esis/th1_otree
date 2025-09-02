@@ -101,7 +101,37 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect
     )
 
+    data_attention_3 = models.StringField(
+        label="<h5> To show you are paying attention, please select the third answer for this question. </h5>",
+        choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the meaning of data.", "I'm capable of understanding the background of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
+        widget=widgets.RadioSelect
+    )
+
+    data_attention_4 = models.StringField(
+        label="<h5> To show you are paying attention, please select the third answer for this question. </h5>",
+        choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the meaning of data.", "I'm capable of understanding the background of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
+        widget=widgets.RadioSelect
+    )
+
+    data_attention_5 = models.StringField(
+        label="<h5> To show you are paying attention, please select the third answer for this question. </h5>",
+        choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the meaning of data.", "I'm capable of understanding the background of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
+        widget=widgets.RadioSelect
+    )
+
+    data_attention_6 = models.StringField(
+        label="<h5> To show you are paying attention, please select the third answer for this question. </h5>",
+        choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the meaning of data.", "I'm capable of understanding the background of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
+        widget=widgets.RadioSelect
+    )
+
     data_attention_2 = models.StringField(
+            label="<h5> Which of the following is a common way to organize data? </h5>",
+            choices=["By throwing papers randomly on the floor", "In rows and columns", "By using only your memory without writing anything down", "In drawn doodles on a napkin", "By singing the numbers out loud instead of writing them down"],
+            widget=widgets.RadioSelect
+    )
+
+    data_attention_7 = models.StringField(
             label="<h5> Which of the following is a common way to organize data? </h5>",
             choices=["By throwing papers randomly on the floor", "In rows and columns", "By using only your memory without writing anything down", "In drawn doodles on a napkin", "By singing the numbers out loud instead of writing them down"],
             widget=widgets.RadioSelect
@@ -188,8 +218,51 @@ class Player(BasePlayer):
 
 #Treatment B
 #easy
+    excel_easy_problem1 = models.StringField(
+            label="<h5> How would you restructure this data so that it can be stored in a relational database? </h5>",
+            choices=[
+            ["A", "District, Gender, Age from, Age to, Amount "],
+            ["B", "Gender, Age and District organized in Rows, Amounts assigned to columns"],
+            ["C", "District, Gender, Age, Amount "],
+            ["D", "Simple listing of values without specific column labels"],
+            ],
+            widget=widgets.RadioSelect
+    )
 
+    excel_easy_problem2 = models.StringField(
+            label="<h5> What is a common problem in the given dataset? </h5>",
+            choices=[
+            ["headers", "Missing column headers"],
+            ["delimiters", "Inconsistent use of delimiters"],
+            ["assignment", "Assignment of values to multiple attributes"],
+            ["keys", "Duplicate primary keys"],
+            ],
+            widget=widgets.RadioSelect
+    )
 
+    excel_easy_problem3 = models.StringField(
+            label="<h5> Which characteristic shows that the dataset is in a wide rather than a tidy structure? </h5>",
+            choices=[
+            ["exactly_three", "A tidy table must always have exactly three columns: “Variable”, “Value”, and “ID”. This is not the case in this dataset"],
+            ["missing_values", "The dataset is not a tidy table because wide tables always contain more missing values than tidy tables."],
+            ["gender_age", "The dataset is not in a tidy structure because the attributes Gender and Age are spread across multiple columns."],
+            ["repeated_values", "The dataset is a tidy table which can be recognized by the fact that values are repeated across different cells."],
+            ["unique_names", "The dataset is a wide table because there are unique column names."],
+            ],
+            widget=widgets.RadioSelect
+    )
+
+    excel_easy_problem4 = models.StringField(
+            label="<h5> How could you edit the wide table to get a tidy table? </h5>",
+            choices=[
+            ["clear_names", "I should label the columns more clearly to show the assignment of values more clearly. It is not necessary to restructure the table for this."],
+            ["pivot", "I should pivot the table to transfer the values of a variable into a column."],
+            ["delete", "I delete duplicate data."],
+            ["new", "I create new tables to store the attributes uniquely."],
+            ["detailed", "I am adding additional columns to record the attributes in more detail."],
+            ],
+            widget=widgets.RadioSelect
+    )
 
 #difficult
     excel_difficult_problem1 = models.StringField(
