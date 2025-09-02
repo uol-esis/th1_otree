@@ -221,11 +221,6 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect
     )
 
-    #Offene Fragen
-    open1 = models.LongStringField(label='Antwort 1')
-    open2 = models.LongStringField(label='Antwort 2')
-    open3 = models.LongStringField(label='Antwort 3')
-
     # Post-questionnaire
     post_experience = models.LongStringField(
         label="Please describe your experience using the tool.",

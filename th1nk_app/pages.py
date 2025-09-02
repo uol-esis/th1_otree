@@ -36,7 +36,7 @@ class Intro(Page):
 
 class TreatmentA_easy(Page):
     form_model = 'player'
-    form_fields = ['tool_easy_checkout', 'tool_easy_problem1', 'tool_easy_problem2']
+    form_fields = ['tool_easy_checkout', 'tool_easy_problem1', 'data_attention_1', 'tool_easy_problem2']
     timeout_seconds = 300  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
@@ -62,7 +62,7 @@ class TreatmentA_easy(Page):
 
 class TreatmentB_easy(Page):
     form_model = 'player'
-    form_fields = []
+    form_fields = ['data_attention_1']
     timeout_seconds = 30  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
@@ -77,7 +77,7 @@ class TreatmentA_difficult(Page):
     form_model = 'player'
     form_fields = [
         'tool_difficult_problem1', 'tool_difficult_problem2',
-        'tool_difficult_steps1', 'tool_difficult_steps2', 'tool_difficult_steps3', 'tool_difficult_steps4', 'tool_difficult_steps5',
+        'tool_difficult_steps1', 'tool_difficult_steps2', 'tool_difficult_steps3', 'data_attention_1', 'tool_difficult_steps4', 'tool_difficult_steps5',
         'tool_difficult_col1'
     ]
 
@@ -109,7 +109,7 @@ class TreatmentA_difficult(Page):
 
 class TreatmentB_difficult(Page):
     form_model = 'player'
-    form_fields = ['excel_difficult_problem1', 'excel_difficult_problem2', 'excel_difficult_col1']
+    form_fields = ['excel_difficult_problem1', 'excel_difficult_problem2', 'excel_difficult_col1', 'data_attention_1']
     timeout_seconds = 30  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
