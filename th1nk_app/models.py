@@ -4,7 +4,6 @@ from otree.api import *
 from pathlib import Path
 import pandas as pd
 from django.utils.safestring import mark_safe
-from django.utils.safestring import mark_safe
 
 class C(BaseConstants):
     NAME_IN_URL = 'th1nk_app'
