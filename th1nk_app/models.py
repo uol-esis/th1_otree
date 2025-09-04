@@ -284,6 +284,26 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect
     )
 
+    excel_difficult_steps1 = models.BooleanField(
+        label="<h5> Did you <b> replace individual values with new values </b> in the raw data? </h5>"
+    )
+
+    excel_difficult_steps2 = models.BooleanField(
+        label="<h5> Did you <b> change column names </b> in the raw data?  </h5>"
+    )
+
+    excel_difficult_steps3 = models.BooleanField(
+        label="<h5> Did you <b> delete duplicate entries </b> in the raw data?  </h5>"
+    )
+
+    excel_difficult_steps4 = models.BooleanField(
+        label="<h5> Did you <b> split values from one column into several new columns </b> in the raw data? </h5>"
+    )
+
+    excel_difficult_steps5 = models.BooleanField(
+        label="<h5> Did you <b> convert time units </b> in the raw data? </h5>"
+    )
+
     excel_difficult_col1 = models.StringField(
         label="<h5> Based on the data, which column names are most suitable for the transformed data? </h5>",
         choices=[["area", "Area, Main means of transport, Delay due to, Time of day"],
