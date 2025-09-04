@@ -1,4 +1,7 @@
 {% block content %}
 <h4>Thank you for participating in our experiment!</h4>
-<h4>Please find you payment in Prolific.</h4>
+
+<p>You answered {{ player.score }} question(s) correctly.</p>
+<p>Your total payoff: {{ payoff_exact }}</p>
+<p>Please find your payment in Prolific.</p>
 {% endblock %}
