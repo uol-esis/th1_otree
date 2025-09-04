@@ -152,28 +152,6 @@ class TreatmentB_difficult(Page):
                 score += 1
         self.player.score += score
 
-class ResultDifficultA(Page):
-    form_model = 'player'
-    
-    def vars_for_template(self):
-        end_time = time.time()
-        start_time = self.player.participant.vars.get('start_time', end_time)
-        total_duration = end_time - start_time  # Zeit in Sekunden
-        self.player.participant.vars['total_duration'] = total_duration
-
-        base_pay = 1
-        score_bonus = self.player.score * 0.1
-        time_penalty = (total_duration / 60) * 0.1  # z.B. 0.10 pro Minute
-        payoff_value = base_pay + score_bonus - time_penalty 
-        print(payoff_value)
-        self.player.payoff = cu(payoff_value)
-        payoff_exact = float(self.player.payoff)
-        return dict(
-            payoff_exact=round(payoff_exact, 2),  # auf 2 Nachkommastellen
-            score=self.player.score,
-            total_duration=self.player.participant.vars.get('total_duration', 0)
-        )
-
 class TimeUp(Page):
     form_model = 'player'
     timeout_seconds = 25 # TODO hier 30 Sekunden einstellen
@@ -190,16 +168,29 @@ class PostQuestionnaire(Page):
 class ThankYou(Page):
     form_model = 'player'
 
+    def vars_for_template(self):
+            end_time = time.time()
+            start_time = self.player.participant.vars.get('start_time', end_time)
+            total_duration = end_time - start_time  # Zeit in Sekunden
+            self.player.participant.vars['total_duration'] = total_duration
+            score_bonus = self.player.score * self.session.config['real_world_currency_per_point']
+            self.player.payoff = cu(score_bonus)
+            payoff_exact = self.session.config['participation_fee'] + float(self.player.payoff)
+            return dict(
+                payoff_exact=round(payoff_exact, 2),  # auf 2 Nachkommastellen
+                score=self.player.score,
+                total_duration=self.player.participant.vars.get('total_duration', 0)
+            )
+
 page_sequence = [
-    Introduction,
+    #Introduction,
     #PreQuestionnaire,
-    Intro,
+    #Intro,
     TreatmentA_easy,
     TreatmentB_easy,
     #TimeUp,
     TreatmentA_difficult,
     TreatmentB_difficult,
-    ResultDifficultA,
     PostQuestionnaire,
     ThankYou
     ]
