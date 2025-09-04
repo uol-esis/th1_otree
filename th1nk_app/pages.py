@@ -151,7 +151,6 @@ class TreatmentB_difficult(Page):
             if getattr(self.player, field) == should_be_true:
                 score += 1
         self.player.score += score
-    
 
 class ResultDifficultA(Page):
     form_model = 'player'
@@ -181,7 +180,12 @@ class TimeUp(Page):
 
 class PostQuestionnaire(Page):
     form_model = 'player'
-    form_fields = ['post_experience', 'difficulties', 'satisfaction']
+
+    def get_form_fields(self):
+        if self.player.treatment == 'A':
+            return ['post_experience', 'difficulties', 'satisfaction']
+        else:
+            return ['difficulties', 'satisfaction']
 
 class ThankYou(Page):
     form_model = 'player'
