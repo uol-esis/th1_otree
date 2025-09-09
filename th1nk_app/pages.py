@@ -183,9 +183,9 @@ class ThankYou(Page):
             )
 
 page_sequence = [
-    #Introduction,
-    #PreQuestionnaire,
-    #Intro,
+    Introduction,
+    PreQuestionnaire,
+    Intro,
     TreatmentA_easy,
     TreatmentB_easy,
     #TimeUp,
