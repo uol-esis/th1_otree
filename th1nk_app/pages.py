@@ -8,7 +8,13 @@ from .models import C, Subsession, Group, Player
 
 class Introduction(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender', 'prolificID', 'employment_status', 'job_type', 'education']
+    form_fields = ['prolificID', 'age', 'gender', 'employment_status', 'job_type', 'education']
+
+    def vars_for_template(self):
+        # Wenn noch keine Startzeit gespeichert ist, speichern
+        if 'start_time' not in self.player.participant.vars:
+            self.player.participant.vars['start_time'] = time.time()
+        return {}
 
 class PreQuestionnaire(Page):
     form_model = 'player'
@@ -18,84 +24,173 @@ class PreQuestionnaire(Page):
         'data_transformation',
         'data_metadata',
         'data_visualization',
+        'data_attention_1',
         'data_interactive',
+        'data_attention_2',
         'data_interpretation',
         'data_communication',
         ]
 
-class TreatmentB(Page):
-    def is_displayed(self):
-        form_fields = ['B']
-        return self.treatment == 'B'
-
 class Intro(Page):
     form_model = 'player'
-    timeout_seconds = 2  # TODO hier sollten ca 2 Minuten eingestellt werden -> fürs testen nur verkürzte zeit
 
 class TreatmentA_easy(Page):
     form_model = 'player'
-    form_fields = ['mc1', 'mc2', 'mc3', 'open1', 'open2', 'open3']
-    timeout_seconds = 5  # TODO hier 8 Minuten einstellen
+    form_fields = ['tool_easy_checkout', 'tool_easy_problem1', 'data_attention_3', 'tool_easy_problem2']
+    timeout_seconds = 300  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
         return self.player.treatment == 'A'
-        #return self.player.TREATMENT == 'A'
-
-    def vars_for_template(player):
-        # Erste Zeile aus Excel als Beispiel
-        ausschnitt = C.DATA.head(5).to_html(index=False)
-        return dict(aufgabe=ausschnitt)
 
     def vars_for_template(self):
-        return {
-            'external_url': f'https://yourtool.com/start?participant={self.participant.code}'
+        # Erste Zeile aus Excel als Beispiel
+        ausschnitt = C.DATA_EASY.head(5).to_html(index=False)
+        return dict(aufgabe=ausschnitt)
+    
+    def before_next_page(self):
+        correct_answers = {
+            'tool_easy_checkout': 'C',
+            'tool_easy_problem1': 'multiple attributes',
+            'tool_easy_problem2': 'one col attributes'
         }
+        score = 0
+        for field, should_be_true in correct_answers.items():
+            if getattr(self.player, field) == should_be_true:
+                score += 1
+        self.player.score += score
 
-    def post(self):
-        uploads_dir = os.path.join(os.getcwd(), 'uploads')
-        if not os.path.exists(uploads_dir):
-            os.makedirs(uploads_dir)
 
-        uploaded_file = self.request.POSTFILES.get('upload')
-        if uploaded_file:
-            filename = f"{self.participant.code}_{uploaded_file.name}"
-            path = os.path.join('uploads', filename)
-            default_storage.save(path, uploaded_file)
-            self.player.uploaded_filename = filename
-        return super().post()
+class TreatmentB_easy(Page):
+    form_model = 'player'
+    form_fields = ['excel_easy_problem1', 'data_attention_7', 'excel_easy_problem2', 'excel_easy_problem3', 'excel_easy_problem4']
+    timeout_seconds = 30  # TODO hier 8 Minuten einstellen
 
-    def before_next_page(self, timeout_happened):
-        # Automatische Auswertung Multiple Choice
-        correct_answers = {'mc1': 'A', 'mc2': 'B', 'mc3': 'C'}
-        score = sum(getattr(player, q) == ans for q, ans in correct_answers.items())
-        self.score_mc = score
+    def is_displayed(self):
+        return self.player.treatment == 'B'
 
-        # Beispiel für offene Fragen – hier nur Länge der Antwort > 0 als "korrekt"
-        open_score = sum(len(getattr(self, q) or '') > 0 for q in ['open1', 'open2', 'open3'])
-        self.score_open = open_score
+    def vars_for_template(self):
+        # Erste Zeile aus Excel als Beispiel
+        ausschnitt = C.DATA_EASY.head(5).to_html(index=False)
+        return dict(aufgabe=ausschnitt)
 
-        if timeout_happened:
-            self.participant.vars['timeout_reached'] = True
-        else:
-            self.participant.vars['timeout_reached'] = False
+    def before_next_page(self):
+        correct_answers = {
+            'excel_easy_problem1': 'C',
+            'excel_easy_problem2': 'assignment',
+            'excel_easy_problem3': 'gender_age',
+            'excel_easy_problem4': 'pivot'
+        }
+        score = 0
+        for field, should_be_true in correct_answers.items():
+            if getattr(self.player, field) == should_be_true:
+                score += 1
+        self.player.score += score
 
+class TreatmentA_difficult(Page):
+    form_model = 'player'
+    form_fields = [
+        'tool_difficult_problem1', 'tool_difficult_problem2',
+        'tool_difficult_steps1', 'tool_difficult_steps2', 'tool_difficult_steps3', 'data_attention_5', 'tool_difficult_steps4', 'tool_difficult_steps5',
+        'tool_difficult_col1', 'data_attention_4'
+    ]
+
+    timeout_seconds = 600  # TODO hier 8 Minuten einstellen
+
+    def is_displayed(self):
+        return self.player.treatment == 'A'
+
+    def vars_for_template(self):
+        # Erste Zeile aus Excel als Beispiel
+        ausschnitt = C.DATA_DIFFICULT.head(5).to_html(index=False)
+        return dict(aufgabe=ausschnitt)
+    
+    def before_next_page(self):
+        correct_answers = {
+            'tool_difficult_problem1': 'invalid characters',
+            'tool_difficult_problem2': 'missing col names',
+            'tool_difficult_steps1' : False, 'tool_difficult_steps2' : True, 'tool_difficult_steps3': True, 'tool_difficult_steps4': False, 'tool_difficult_steps5': True,
+            'tool_difficult_col1': 'city'
+        }
+        score = 0
+        for field, should_be_true in correct_answers.items():
+            if getattr(self.player, field) == should_be_true:
+                score += 1
+        self.player.score += score
+
+        
+
+
+class TreatmentB_difficult(Page):
+    form_model = 'player'
+    form_fields = ['excel_difficult_problem1', 'excel_difficult_problem2',
+                   'excel_difficult_steps1',  'excel_difficult_steps2',  'excel_difficult_steps3',  'excel_difficult_steps4',  'excel_difficult_steps5',
+                    'excel_difficult_col1', 'data_attention_6']
+    timeout_seconds = 300  # TODO hier 8 Minuten einstellen
+
+    def is_displayed(self):
+        return self.player.treatment == 'B'
+
+    def vars_for_template(self):
+        # Erste Zeile aus Excel als Beispiel
+        ausschnitt = C.DATA_DIFFICULT.head(5).to_html(index=False)
+        return dict(aufgabe=ausschnitt)
+    
+    def before_next_page(self):
+        correct_answers = {
+            'excel_difficult_problem1': 'invalid characters', 
+            'excel_difficult_problem2': 'missing col names', 
+            'excel_difficult_steps1': False,
+            'excel_difficult_steps1': True,
+            'excel_difficult_steps1': False,
+            'excel_difficult_steps1': True,
+            'excel_difficult_steps1': False,
+            'excel_difficult_col1': 'city'
+        }
+        score = 0
+        for field, should_be_true in correct_answers.items():
+            if getattr(self.player, field) == should_be_true:
+                score += 1
+        self.player.score += score
 
 class TimeUp(Page):
     form_model = 'player'
-    timeout_seconds = 15 # TODO hier 30 Sekunden einstellen
+    timeout_seconds = 25 # TODO hier 30 Sekunden einstellen
 
 class PostQuestionnaire(Page):
     form_model = 'player'
-    form_fields = ['post_experience', 'difficulties', 'satisfaction']
+
+    def get_form_fields(self):
+        if self.player.treatment == 'A':
+            return ['post_experience', 'difficulties', 'satisfaction']
+        else:
+            return ['difficulties', 'satisfaction']
+
+class ThankYou(Page):
+    form_model = 'player'
+
+    def vars_for_template(self):
+            end_time = time.time()
+            start_time = self.player.participant.vars.get('start_time', end_time)
+            total_duration = end_time - start_time  # Zeit in Sekunden
+            self.player.participant.vars['total_duration'] = total_duration
+            score_bonus = self.player.score * self.session.config['real_world_currency_per_point']
+            self.player.payoff = cu(score_bonus)
+            payoff_exact = self.session.config['participation_fee'] + float(self.player.payoff)
+            return dict(
+                payoff_exact=round(payoff_exact, 2),  # auf 2 Nachkommastellen
+                score=self.player.score,
+                total_duration=self.player.participant.vars.get('total_duration', 0)
+            )
 
 page_sequence = [
     #Introduction,
     #PreQuestionnaire,
-    Intro,
+    #Intro,
     TreatmentA_easy,
-    #TreatmentB_easy,
-    TimeUp,
-    #TreatmentA_difficult,
-    #TreatmentB_difficult,
-    PostQuestionnaire
+    TreatmentB_easy,
+    #TimeUp,
+    TreatmentA_difficult,
+    TreatmentB_difficult,
+    PostQuestionnaire,
+    ThankYou
     ]

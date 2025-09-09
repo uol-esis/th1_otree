@@ -1,20 +1,21 @@
 {% block content %}
+
 <div style="display:flex; flex-direction:column; gap:30px;">
-    <h2>Let's start with the first task:</h2>
+    <h2>Let's go to the next task:</h2>
     <h4>Your supervisor asks you to look at the following data.
         He has a few questions about it.</h4>
-
+    
     <h4>To analyze it, transform the data from the file into a database-compliant data record.
         Here is a small snippet of it.</h4>
+
     {{ aufgabe }}
 
     <div>
         <h4>Please use this dataset:</h4>
-        <a href="{% static 'data/city_data.xlsx' %}" download >city_data.xlsx</a>
+        <a href="{% static 'data/traffic_data.xlsx' %}" download >traffic_data.xlsx</a>
     </div>
-
+    
     <h3>Use the following technical tool for this purpose:</h3>
-
     <div style="width:100%; position:relative;">
         <iframe 
             src="https://pg-doener-dev.virt.uni-oldenburg.de" 
@@ -22,13 +23,12 @@
             frameborder="0">
         </iframe>
     </div>
-
-    <h4>After completing the task, please answer the following questions:</h4>
-    <div>
-        {{ formfields }}
-    </div>
-    <div style="margin-top:30px;">
-        {{ next_button }}
-    </div>
+    <h4>After completing the task, please answer the following questions.</h4>
 </div>
+
+{{ formfields }}
+{{ next_button }}
+
+
+
 {% endblock %}
