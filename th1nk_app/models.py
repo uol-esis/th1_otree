@@ -172,7 +172,7 @@ class Player(BasePlayer):
     tool_difficult_problem1 = models.StringField(
         label="<h5> What problem areas do you identify in the raw data and how would you deal with these challenges in each case? </h5>",
         choices=[
-           ["invalid characters" , "Invalid characters: Replace special characters with appropriate values."],
+           ["invalid characters" , "Invalid values: Replace special characters with appropriate values or remove them."],
            ["inconsistent spellings", "Inconsistent spellings in text categories: Standardize them using mapping or text normalization (lowercasing, removing special characters)."],
            ["missing values", "Missing values: Decide whether to fill in missing entries through imputation or remove rows with too many missing values."]
         ],
