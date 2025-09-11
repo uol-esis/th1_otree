@@ -11,9 +11,15 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# Install Python deps
+# Create a virtual environment
+RUN python -m venv /venv
+
+# Ensure pip is up-to-date inside venv
+RUN /venv/bin/pip install --upgrade pip
+
+# Install Python deps into the venv
 COPY requirements-docker.txt .
-RUN pip install --user --no-cache-dir -r requirements-docker.txt
+RUN /venv/bin/pip install --no-cache-dir -r requirements-docker.txt
 
 
 # =========================
@@ -23,17 +29,23 @@ FROM python:3.11-slim
 
 # Create a non-root user
 RUN useradd -m otree
-USER otree
 
 WORKDIR /app
 
-# Copy installed packages from builder
-COPY --from=builder /root/.local /home/otree/.local
-ENV PATH=/home/otree/.local/bin:$PATH
+# Copy the virtual environment from the builder
+COPY --from=builder /venv /venv
+
+# Ensure /app is owned by otree user and is writable
+USER root
+RUN chown -R otree:otree /app
+
+USER otree
+
+# Ensure the venv is used for all Python/Pip commands
+ENV PATH="/venv/bin:$PATH"
 
 # Copy project files
 COPY . .
-
 
 # Expose port
 EXPOSE 8000
