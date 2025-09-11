@@ -1,0 +1,38 @@
+services:
+  web:
+    build: .
+    command: otree prodserver 0.0.0.0:8000
+    ports:
+      - "127.0.0.1:8001:8000"
+    restart: always
+    depends_on:
+      - db
+      - redis
+    environment:
+      # Database
+      DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}"
+      # Redis (channels layer)
+      REDIS_URL: redis://redis:6379/0
+      # oTree admin password
+      OTREE_ADMIN_PASSWORD: ${OTREE_ADMIN_PASSWORD}
+      OTREE_PRODUCTION: ${OTREE_PRODUCTION}
+      OTREE_AUTH_LEVEL: ${OTREE_AUTH_LEVEL}
+    #volumes:
+    #  - .:/app  # optional: only if you want hot reload in dev
+
+  db:
+    image: postgres:17-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:8
+    restart: always
+
+volumes:
+  postgres_data:
