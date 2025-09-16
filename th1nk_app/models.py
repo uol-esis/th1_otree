@@ -322,9 +322,9 @@ class Player(BasePlayer):
         label="What difficulties did you encounter, if any?",
         blank=True
     )
-    satisfaction = models.IntegerField(
+    satisfaction = models.StringField(
         label="How satisfied are you with the tool?",
-        choices=[[i, str(i)] for i in range(1, 6)],
+        choices=["very satisfied", "satisfied",  "neutral", "dissatisfied", "very dissatisfied"],
         widget=widgets.RadioSelectHorizontal
     )
 
