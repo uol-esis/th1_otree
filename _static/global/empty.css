@@ -1,0 +1,30 @@
+.infobox {
+    background-color: #f9f9ff;   /* helles Blau als Hintergrund */
+    border: 1px solid #cbd5e0;   /* dezente graue Umrandung */
+    border-radius: 12px;         /* abgerundete Ecken */
+    padding: 20px;               /* Innenabstand */
+    max-width: 600px;            /* maximale Breite */
+    margin: 20px auto;           /* zentrieren */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* leichter Schatten */
+    font-family: Arial, sans-serif;
+}
+
+.infobox h4 {
+    margin-top: 0;
+    color: #2d3748;  /* dunkles Grau */
+}
+
+.infobox ul {
+    margin: 10px 0 20px 20px;
+}
+
+.infobox li {
+    margin-bottom: 6px;
+}
+
+.infobox img {
+    display: block;
+    margin: 0 auto; /* Bild zentrieren */
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
