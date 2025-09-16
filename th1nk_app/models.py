@@ -307,7 +307,7 @@ class Player(BasePlayer):
         label="<h5> Based on the data, which column names are most suitable for the transformed data? </h5>",
         choices=[["area", "Area, Main means of transport, Delay due to, Time of day"],
             ["location", "Location, Vehicle, Time of day, Minutes"],
-            ["city", "City, Means of transport, Cause, Time, Duration"],
+            ["city", "City, Means of transport, Cause, Duration"],
            ["accident", "Accident location, Participant, Cause, Rescue time"]
         ],
         widget=widgets.RadioSelect
