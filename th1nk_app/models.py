@@ -22,7 +22,7 @@ class Subsession(BaseSubsession):
         #TREATMENT = itertools.cycle(['A', 'B'])
         for p in self.get_players():
             #p.treatment = random.choice(C.TREATMENT)
-            p.treatment = "A"
+            p.treatment = "B"
 
 class Group(BaseGroup):
     pass
@@ -160,7 +160,7 @@ class Player(BasePlayer):
 
     tool_easy_problem2 = models.StringField(choices= [
        ['complex structure' ,'The structure got more complex.'],
-        ['one col attributes', 'The attributes now extend over only one column.'],
+        ['one col attributes', 'Each attribute now consists of only one column.'],
         ['duplicates', 'Many duplicates were created.'],
         ['changed format', 'The data format has changed.']
         ],

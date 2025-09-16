@@ -1,22 +1,18 @@
 {% block content %}
 
 <div style="display:flex; flex-direction:column; gap:30px;">
-  <h2>Let's go to the next task:</h2>
-  <h4>Your supervisor asks you to look at the following data.
-    He has a few questions about it.</h4>
+  <h2>Let's start with the next task:</h2>
+  <h5>You are an employee in a company. Your supervisor has given you a data file and asked you to prepare it for further analysis.
+    Your task is to examine the dataset and, if necessary, transform it into a database-compliant structure so that it can later be uploaded into a visualization tool and analyzed.</h5>
 
-  <h4>To analyze it, transform the data from the file into a database-compliant data record.
-    Here is a small snippet of it.</h4>
-
-  {{ aufgabe }}
-  
   <div>
-      <h4>Please use this dataset:</h4>
-      <a href="{% static 'data/traffic_data.xlsx' %}" download >traffic_data.xlsx</a>
+    <h5>Please use the following dataset:</h5>
+    <a href="{% static 'data/traffic_data.xlsx' %}" download >traffic_data.xlsx</a>
   </div>
-  
-  <h3>Use Excel for this purpose.</h3>
-  
+
+  <h5>For this task, please use Excel for a transformation.</h5>
+  <div style="width:100%; position:relative;">
+
   {{ formfields }}
   {{ next_button }}
 </div>
