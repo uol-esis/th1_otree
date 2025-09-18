@@ -36,15 +36,6 @@ class Intro(Page):
     def vars_for_template(self):
             return dict(treatment=self.player.treatment)
 
-    '''def is_displayed(self):
-        if self.player.treatment == 'A':
-            return <h2>Video Tutorial</h2>
-                   <h4>This short video explains how to use the software tool that you will need for completing the next step of your task.</h4>
-                   <video width="640" height="360" controls>
-                     <source src="/static/data/explanation_video.mp4" type="video/mp4">
-                     Video format not supported
-                   </video>'''
-
 class TreatmentA_easy(Page):
     form_model = 'player'
     form_fields = ['tool_easy_checkout', 'tool_easy_problem1', 'data_attention_3', 'tool_easy_problem2']
