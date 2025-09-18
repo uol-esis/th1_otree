@@ -19,10 +19,9 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         #import itertools
         #A = Tool, B = Excel
-        #TREATMENT = itertools.cycle(['A', 'B'])
         for p in self.get_players():
             #p.treatment = random.choice(C.TREATMENT)
-            p.treatment = "A"
+            p.treatment = "B"
 
 class Group(BaseGroup):
     pass
@@ -160,7 +159,7 @@ class Player(BasePlayer):
 
     tool_easy_problem2 = models.StringField(choices= [
        ['complex structure' ,'The structure got more complex.'],
-        ['one col attributes', 'The attributes now extend over only one column.'],
+        ['one col attributes', 'Each attribute now consists of only one column.'],
         ['duplicates', 'Many duplicates were created.'],
         ['changed format', 'The data format has changed.']
         ],
@@ -267,7 +266,7 @@ class Player(BasePlayer):
     excel_difficult_problem1 = models.StringField(
         label="<h5> What problem areas do you identify in the raw data and how would you deal with these challenges in each case? </h5>",
         choices=[
-           ["invalid characters" , "Invalid characters: Replace special characters with appropriate values."],
+           ["invalid characters" , "Invalid values: Replace special characters with appropriate values."],
            ["inconsistent spellings", "Inconsistent spellings in text categories: Standardize them using mapping or text normalization (lowercasing, removing special characters)."],
            ["missing values", "Missing values: Decide whether to fill in missing entries through imputation or remove rows with too many missing values."]
         ],
@@ -307,7 +306,7 @@ class Player(BasePlayer):
         label="<h5> Based on the data, which column names are most suitable for the transformed data? </h5>",
         choices=[["area", "Area, Main means of transport, Delay due to, Time of day"],
             ["location", "Location, Vehicle, Time of day, Minutes"],
-            ["city", "City, Means of transport, Cause, Time, Duration"],
+            ["city", "City, Means of transport, Cause, Duration"],
            ["accident", "Accident location, Participant, Cause, Rescue time"]
         ],
         widget=widgets.RadioSelect
@@ -322,9 +321,9 @@ class Player(BasePlayer):
         label="What difficulties did you encounter, if any?",
         blank=True
     )
-    satisfaction = models.IntegerField(
+    satisfaction = models.StringField(
         label="How satisfied are you with the tool?",
-        choices=[[i, str(i)] for i in range(1, 6)],
+        choices=["very satisfied", "satisfied",  "neutral", "dissatisfied", "very dissatisfied"],
         widget=widgets.RadioSelectHorizontal
     )
 
