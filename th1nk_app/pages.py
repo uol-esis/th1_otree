@@ -162,7 +162,7 @@ class PostQuestionnaire(Page):
         if self.player.treatment == 'A':
             return ['post_experience', 'difficulties', 'satisfaction']
         else:
-            return ['difficulties', 'satisfaction']
+            return ['difficulties']
 
 class ThankYou(Page):
     form_model = 'player'

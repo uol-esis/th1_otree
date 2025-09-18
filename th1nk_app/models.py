@@ -19,7 +19,6 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         #import itertools
         #A = Tool, B = Excel
-        #TREATMENT = itertools.cycle(['A', 'B'])
         for p in self.get_players():
             #p.treatment = random.choice(C.TREATMENT)
             p.treatment = "B"
@@ -322,6 +321,7 @@ class Player(BasePlayer):
         label="What difficulties did you encounter, if any?",
         blank=True
     )
+
     satisfaction = models.IntegerField(
         label="How satisfied are you with the tool?",
         choices=[[i, str(i)] for i in range(1, 6)],
