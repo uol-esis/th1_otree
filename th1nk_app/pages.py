@@ -33,6 +33,9 @@ class PreQuestionnaire(Page):
 class Intro(Page):
     form_model = 'player'
 
+    def vars_for_template(self):
+            return dict(treatment=self.player.treatment)
+
 class TreatmentA_easy(Page):
     form_model = 'player'
     form_fields = ['tool_easy_checkout', 'tool_easy_problem1', 'data_attention_3', 'tool_easy_problem2']
