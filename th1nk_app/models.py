@@ -57,7 +57,7 @@ class Player(BasePlayer):
         label='What is your job type?'
     )
     education = models.StringField(
-        choices=['Diploma below college level', 'College diploma', 'University degree below baccalaureate', 'Bachelor\'s degree', 'Master\'s degree', 'Ph.D. or higher degree'],
+        choices=['Diploma below college level', 'Bachelor\'s degree', 'Master\'s degree', 'Ph.D. or higher degree'],
         label='What is the highest level of education that you have completed?'
     )
 
