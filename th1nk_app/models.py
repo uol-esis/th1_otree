@@ -38,11 +38,22 @@ class Player(BasePlayer):
         label='Gender'
     )
     employment_status = models.StringField(
-        choices=['Permenant employee', 'Temporary employee', 'Casual employee', 'Student', 'Intern', 'Consultant'],
+        choices=['Full-time employed',
+        'Part-time employed',
+        'Self-employed',
+        'Unemployed',
+        'Student',
+        'Intern/Apprentice',
+        'Other'],
         label='What is your employment status?'
     )
     job_type = models.StringField(
-        choices=['Technical', 'Professional', 'Management'],
+        choices=['Information Technology / Data',
+        'Education / Academia',
+        'Healthcare',
+        'Business / Management',
+        'Engineering / Technical',
+        'Other'],
         label='What is your job type?'
     )
     education = models.StringField(

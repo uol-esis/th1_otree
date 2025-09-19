@@ -185,7 +185,7 @@ class ThankYou(Page):
             )
 
 page_sequence = [
-    Introduction,
+    
     PreQuestionnaire,
     Intro,
     TreatmentA_easy,
@@ -193,6 +193,7 @@ page_sequence = [
     #TimeUp,
     TreatmentA_difficult,
     TreatmentB_difficult,
+    Introduction,
     PostQuestionnaire,
     ThankYou
     ]
