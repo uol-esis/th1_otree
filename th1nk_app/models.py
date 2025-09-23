@@ -21,7 +21,7 @@ class Subsession(BaseSubsession):
         #A = Tool, B = Excel
         for p in self.get_players():
             #p.treatment = random.choice(C.TREATMENT)
-            p.treatment = "A"
+            p.treatment = "B"
 
 class Group(BaseGroup):
     pass
@@ -29,6 +29,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     treatment = models.StringField()
     score = models.IntegerField(initial=0)
+    attention_failed = models.BooleanField(initial=False)
 
     # Introduction
     prolificID = models.IntegerField(label='Prolific ID')
@@ -106,43 +107,80 @@ class Player(BasePlayer):
 #Attention checks
     data_attention_1 = models.StringField(
         label="<h5> To show you are paying attention, please select the third answer for this question. </h5>",
-        choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the meaning of data.", "I'm capable of understanding the background of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
+        choices=[["first", "I understand the practices used to share the significance of data."], 
+                 ["second", "I understand the effects of using good practices to communicate the meaning of data."], 
+                 ["third", "I'm capable of understanding the background of data."], 
+                 ["fourth", "My current work requires me to implement this skill."], 
+                 ["fifth", "My current level in this skill is sufficient to carry out my work."]
+                 ],
         widget=widgets.RadioSelect
     )
 
     data_attention_3 = models.StringField(
         label="<h5> To show you are paying attention, please select the third answer for this question. </h5>",
-        choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the meaning of data.", "I'm capable of understanding the background of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
+        choices=[["first", "I understand the practices used to share the significance of data."], 
+                 ["second", "I understand the effects of using good practices to communicate the meaning of data."], 
+                 ["third", "I'm capable of understanding the background of data."], 
+                 ["fourth", "My current work requires me to implement this skill."], 
+                 ["fifth", "My current level in this skill is sufficient to carry out my work."]
+                 ],
         widget=widgets.RadioSelect
     )
 
     data_attention_4 = models.StringField(
         label="<h5> To show you are paying attention, please select the third answer for this question. </h5>",
-        choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the meaning of data.", "I'm capable of understanding the background of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
+        choices=[["first", "I understand the practices used to share the significance of data."], 
+                 ["second", "I understand the effects of using good practices to communicate the meaning of data."], 
+                 ["third", "I'm capable of understanding the background of data."], 
+                 ["fourth", "My current work requires me to implement this skill."], 
+                 ["fifth", "My current level in this skill is sufficient to carry out my work."]
+                 ],
         widget=widgets.RadioSelect
     )
 
     data_attention_5 = models.StringField(
         label="<h5> To show you are paying attention, please select the third answer for this question. </h5>",
-        choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the meaning of data.", "I'm capable of understanding the background of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
+        choices=[["first", "I understand the practices used to share the significance of data."], 
+                 ["second", "I understand the effects of using good practices to communicate the meaning of data."], 
+                 ["third", "I'm capable of understanding the background of data."], 
+                 ["fourth", "My current work requires me to implement this skill."], 
+                 ["fifth", "My current level in this skill is sufficient to carry out my work."]
+                 ],
         widget=widgets.RadioSelect
     )
 
     data_attention_6 = models.StringField(
         label="<h5> To show you are paying attention, please select the third answer for this question. </h5>",
-        choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the meaning of data.", "I'm capable of understanding the background of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
+        choices=[["first", "I understand the practices used to share the significance of data."], 
+                 ["second", "I understand the effects of using good practices to communicate the meaning of data."], 
+                 ["third", "I'm capable of understanding the background of data."], 
+                 ["fourth", "My current work requires me to implement this skill."], 
+                 ["fifth", "My current level in this skill is sufficient to carry out my work."]
+                 ],
         widget=widgets.RadioSelect
     )
 
     data_attention_2 = models.StringField(
             label="<h5> Which of the following is a common way to organize data? </h5>",
-            choices=["By throwing papers randomly on the floor", "In rows and columns", "By using only your memory without writing anything down", "In drawn doodles on a napkin", "By singing the numbers out loud instead of writing them down"],
+            choices=[
+                ["papers","By throwing papers randomly on the floor"], 
+                ["rows" ,"In rows and columns"], 
+                ["memory", "By using only your memory without writing anything down"], 
+                ["doodles","In drawn doodles on a napkin"], 
+                ["numbers","By singing the numbers out loud instead of writing them down"]
+            ],
             widget=widgets.RadioSelect
     )
 
     data_attention_7 = models.StringField(
             label="<h5> Which of the following is a common way to organize data? </h5>",
-            choices=["By throwing papers randomly on the floor", "In rows and columns", "By using only your memory without writing anything down", "In drawn doodles on a napkin", "By singing the numbers out loud instead of writing them down"],
+            choices=[
+                ["papers","By throwing papers randomly on the floor"], 
+                ["rows" ,"In rows and columns"], 
+                ["memory", "By using only your memory without writing anything down"], 
+                ["doodles","In drawn doodles on a napkin"], 
+                 ["numbers","By singing the numbers out loud instead of writing them down"]
+            ],
             widget=widgets.RadioSelect
     )
 
