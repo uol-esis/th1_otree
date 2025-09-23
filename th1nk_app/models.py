@@ -21,7 +21,7 @@ class Subsession(BaseSubsession):
         #A = Tool, B = Excel
         for p in self.get_players():
             #p.treatment = random.choice(C.TREATMENT)
-            p.treatment = "B"
+            p.treatment = "A"
 
 class Group(BaseGroup):
     pass
@@ -57,7 +57,7 @@ class Player(BasePlayer):
         label='What is your job type?'
     )
     education = models.StringField(
-        choices=['Diploma below college level', 'Bachelor\'s degree', 'Master\'s degree', 'Ph.D. or higher degree'],
+        choices=['Apprenticeship','Diploma below college level', 'Bachelor\'s degree', 'Master\'s degree', 'Ph.D. or higher degree'],
         label='What is the highest level of education that you have completed?'
     )
 
@@ -184,7 +184,7 @@ class Player(BasePlayer):
         choices=[
            ["invalid characters" , "Invalid values: Replace special characters with appropriate values or remove them."],
            ["inconsistent spellings", "Inconsistent spellings in text categories: Standardize them using mapping or text normalization (lowercasing, removing special characters)."],
-           ["missing values", "Missing values: Decide whether to fill in missing entries through imputation or remove rows with too many missing values."]
+           ["missing values", "Missing cell entries: Decide whether to fill in missing entries through imputation or remove rows with too many missing values."]
         ],
         widget=widgets.RadioSelect
     )
@@ -217,9 +217,9 @@ class Player(BasePlayer):
 
     tool_difficult_col1 = models.StringField(
         label="<h5> Based on the data, which column names are most suitable for the transformed data? </h5>",
-        choices=[["area", "Area, Main means of transport, Delay due to, Time of day"],
-            ["location", "Location, Vehicle, Time of day, Minutes"],
-            ["city", "City, Means of transport, Cause, Time, Duration"],
+        choices=[["city", "City,  Means of transport, Delay due to, Minutes"],
+            ["location", "Location, Vehicle, Destination, Duration"],
+            ["area", "Area, Means of transport, Cause, Time, Duration"],
            ["accident", "Accident location, Participant, Cause, Rescue time"]
         ],
         widget=widgets.RadioSelect

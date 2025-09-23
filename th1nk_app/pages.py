@@ -142,10 +142,10 @@ class TreatmentB_difficult(Page):
             'excel_difficult_problem1': 'invalid characters', 
             'excel_difficult_problem2': 'missing col names', 
             'excel_difficult_steps1': False,
-            'excel_difficult_steps1': True,
-            'excel_difficult_steps1': False,
-            'excel_difficult_steps1': True,
-            'excel_difficult_steps1': False,
+            'excel_difficult_steps2': True,
+            'excel_difficult_steps3': False,
+            'excel_difficult_steps4': True,
+            'excel_difficult_steps5': False,
             'excel_difficult_col1': 'city'
         }
         score = 0
