@@ -4,9 +4,164 @@
     Your responses will be kept confidential and used only for research purposes.</h5>
 <div style="margin-top: 50px;"></div>
 
-<form method="post">
-    {{ formfields }}
-    {{ next_button }}
+<style>
+    .items-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+    }
 
-</form>
+    .item {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    .item h5 {
+        margin-bottom: 10px;
+    }
+
+    .item .otree-radio-horizontal {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+</style>
+
+<div class="items-grid">
+
+    <!-- Data Identification (DI) -->
+    <div class="item">
+        <h5>{{ form.DLSE_DI1.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DI1 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DI2.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DI2 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DI3.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DI3 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DI4.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DI4 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DI5.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DI5 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DI6.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DI6 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DI7.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DI7 }}</div>
+    </div>
+
+    <!-- Data Processing (DP) -->
+    <div class="item">
+        <h5>{{ form.DLSE_DP1.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP1 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP2.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP2 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP3.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP3 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP4.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP4 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP5.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP5 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP6.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP6 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP7.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP7 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP8.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP8 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP9.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP9 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP10.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP10 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP11.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP11 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP12.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP12 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP13.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP13 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP14.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP14 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP15.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP15 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DP16.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DP16 }}</div>
+    </div>
+
+    <!-- Data Sharing & Management (DMS) -->
+    <div class="item">
+        <h5>{{ form.DLSE_DMS1.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DMS1 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DMS2.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DMS2 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DMS3.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DMS3 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DMS4.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DMS4 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DMS5.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DMS5 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DMS6.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DMS6 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DMS7.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DMS7 }}</div>
+    </div>
+    <div class="item">
+        <h5>{{ form.DLSE_DMS8.label }}</h5>
+        <div class="otree-radio-horizontal">{{ form.DLSE_DMS8 }}</div>
+    </div>
+
+</div>
+
+
 {% endblock %}

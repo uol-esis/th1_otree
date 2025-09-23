@@ -19,16 +19,14 @@ class Introduction(Page):
 class PreQuestionnaire(Page):
     form_model = 'player'
     #Questions from questionnaire of LanglaisMosconiGuillemette
-    form_fields = ['data_conversion',
-        'data_cleansing',
-        'data_transformation',
-        'data_metadata',
-        'data_visualization',
-        'data_interactive',
-        'data_attention_2',
-        'data_interpretation',
-        'data_communication',
-        ]
+    form_fields = [
+    'DLSE_DI1', 'DLSE_DI2', 'DLSE_DI3', 'DLSE_DI4', 'DLSE_DI5', 'DLSE_DI6', 'DLSE_DI7',
+    'DLSE_DP1', 'DLSE_DP2', 'DLSE_DP3', 'DLSE_DP4', 'DLSE_DP5',
+    'DLSE_DP6', 'DLSE_DP7', 'DLSE_DP8', 'DLSE_DP9', 'DLSE_DP10',
+    'DLSE_DP11', 'DLSE_DP12', 'DLSE_DP13', 'DLSE_DP14', 'DLSE_DP15', 'DLSE_DP16',
+    'DLSE_DMS1', 'DLSE_DMS2', 'DLSE_DMS3', 'DLSE_DMS4',
+    'DLSE_DMS5', 'DLSE_DMS6', 'DLSE_DMS7', 'DLSE_DMS8'
+    ]
 
 class Intro(Page):
     form_model = 'player'
@@ -185,7 +183,7 @@ class ThankYou(Page):
             )
 
 page_sequence = [
-    Introduction,
+    #Introduction,
     PreQuestionnaire,
     Intro,
     TreatmentA_easy,
