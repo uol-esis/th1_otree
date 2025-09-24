@@ -59,7 +59,8 @@ class Intro(Page):
         return not self.player.attention_failed
 
     def vars_for_template(self):
-            return dict(treatment=self.player.treatment)
+            return dict(treatment=self.player.treatment, base=self.session.config['participation_fee'], additional=self.session.config['real_world_currency_per_point'] )
+
 
 class TreatmentA_easy(Page):
     form_model = 'player'

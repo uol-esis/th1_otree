@@ -7,6 +7,48 @@
     Careful work is therefore rewarded.
     Please answer to the best of your knowledge.
     </h4>
+
+    <h4>In the tasks you have to transform a dataset into a database-compliant dataset. Below is the appropriate definition of a tidy dataset </h4>
+
+    <div style="
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        background-color: #f9f9ff;
+        border: 1px solid #cbd5e0;
+        border-radius: 12px;
+        padding: 20px;
+        max-width: 600px;
+        margin: 20px auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    ">
+        <div style="
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3182ceb0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        ">
+            i
+        </div>
+        <h4>
+            This exercise is about database-compliant data records.
+            Such a data record has to satisfy the following requirements to be database compliant:
+            <ul>
+                <li>Every column is a variable</li>
+                <li>Every row is an observation</li>
+                <li>Every cell is a single value</li>
+            </ul>
+        </h4>
+        <h4>For example this table satisfy all requirements:</h4>
+        <img width=400 src="/static/data/tidy_data.png"/>
+    </div>
     
     {% if treatment == 'A' %}
     <h2>Video Tutorial</h2>
@@ -21,9 +63,12 @@
     </video>
     {% endif %}
     
-    <h4><b>Important:</b> Some questions may include attention checks to ensure careful work.
-    Incorrect answers to these will prevent you from moving to the next page.
-    Points from correctly answered tasks will increase your final reward.</h4>
+    <h4>
+        <b>Important:</b> Some questions may include attention checks to ensure careful work.
+        Incorrect answers to these will prevent you from moving to the next page.
+        Points from correctly answered tasks will increase your final reward.
+        (participation fee {{base}} and for each correct answer {{additional}})
+    </h4>
     
     {{ next_button }}
 </div>
