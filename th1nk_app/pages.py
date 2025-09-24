@@ -10,6 +10,9 @@ from .models import C, Subsession, Group, Player
 class Introduction(Page):
     form_model = 'player'
 
+    def is_displayed(self):
+        return not self.player.attention_failed
+
     def vars_for_template(self):
         # Wenn noch keine Startzeit gespeichert ist, speichern
         if 'start_time' not in self.player.participant.vars:
@@ -21,7 +24,7 @@ class PreQuestionnaire(Page):
     #Questions from questionnaire of „Kim, J., Hong, L., and Evans, S. 2024. “Toward measuring data literacy for higher education: Developing
                                      #and validating a data literacy self-efficacy scale,” Journal of the Association for Information Science and Technology (75:8), pp. 916–931.“
     form_fields = [
-    'DLSE_DI1', 'DLSE_DI2', 'DLSE_DI3', 'DLSE_DI4', 'DLSE_DI5', 'DLSE_DI6', 'DLSE_DI7',
+    'DLSE_DI1', 'DLSE_DI2', 'DLSE_DI3', 'DLSE_DI4', 'DLSE_DI5', 'DLSE_DI6', 'data_attention_2', 'DLSE_DI7',
     'DLSE_DP1', 'DLSE_DP2', 'DLSE_DP3', 'DLSE_DP4', 'DLSE_DP5',
     'DLSE_DP6', 'DLSE_DP7', 'DLSE_DP8', 'DLSE_DP9', 'DLSE_DP10',
     'DLSE_DP11', 'DLSE_DP12', 'DLSE_DP13', 'DLSE_DP14', 'DLSE_DP15', 'DLSE_DP16',
@@ -30,7 +33,7 @@ class PreQuestionnaire(Page):
     ]
 
     def vars_for_template(player):
-            fields = ['DLSE_DI1', 'DLSE_DI2', 'DLSE_DI3', 'DLSE_DI4', 'DLSE_DI5', 'DLSE_DI6', 'DLSE_DI7',
+            fields = ['DLSE_DI1', 'DLSE_DI2', 'DLSE_DI3', 'DLSE_DI4', 'DLSE_DI5', 'DLSE_DI6', 'data_attention_2', 'DLSE_DI7',
                      'DLSE_DP1', 'DLSE_DP2', 'DLSE_DP3', 'DLSE_DP4', 'DLSE_DP5',
                      'DLSE_DP6', 'DLSE_DP7', 'DLSE_DP8', 'DLSE_DP9', 'DLSE_DP10',
                      'DLSE_DP11', 'DLSE_DP12', 'DLSE_DP13', 'DLSE_DP14', 'DLSE_DP15', 'DLSE_DP16',
@@ -40,8 +43,20 @@ class PreQuestionnaire(Page):
             random.shuffle(fields)  # randomizes the order
             return dict(randomized_fields=fields)
 
+    def before_next_page(self):
+        attention_checks = {
+            'data_attention_2': 1
+        }
+
+        for field, should_be_true in attention_checks.items():
+            if getattr(self.player, field) != should_be_true:
+                self.player.attention_failed = True
+
 class Intro(Page):
     form_model = 'player'
+
+    def is_displayed(self):
+        return not self.player.attention_failed
 
     def vars_for_template(self):
             return dict(treatment=self.player.treatment)
@@ -52,7 +67,7 @@ class TreatmentA_easy(Page):
     timeout_seconds = 600  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
-        return self.player.treatment == 'A'
+        return self.player.treatment == 'A' and not self.player.attention_failed
 
     def vars_for_template(self):
         # Erste Zeile aus Excel als Beispiel
@@ -65,11 +80,22 @@ class TreatmentA_easy(Page):
             'tool_easy_problem1': 'multiple attributes',
             'tool_easy_problem2': 'one col attributes'
         }
+
+        attention_checks = {
+            'data_attention_3': 'third',
+        }
+
+        #normal questions
         score = 0
         for field, should_be_true in correct_answers.items():
             if getattr(self.player, field) == should_be_true:
                 score += 1
         self.player.score += score
+
+        #attention checks
+        for field, should_be_true in attention_checks.items():
+            if getattr(self.player, field) != should_be_true:
+                self.player.attention_failed = True
 
 
 class TreatmentB_easy(Page):
@@ -78,7 +104,7 @@ class TreatmentB_easy(Page):
     timeout_seconds = 600  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
-        return self.player.treatment == 'B'
+        return self.player.treatment == 'B'and not self.player.attention_failed
 
     def vars_for_template(self):
         # Erste Zeile aus Excel als Beispiel
@@ -91,11 +117,22 @@ class TreatmentB_easy(Page):
             'excel_easy_problem2': 'assignment',
             'excel_easy_problem4': 'pivot'
         }
+
+        attention_checks = {
+            'data_attention_7': 'rows',
+        }
+
+        #normal questions
         score = 0
         for field, should_be_true in correct_answers.items():
             if getattr(self.player, field) == should_be_true:
                 score += 1
         self.player.score += score
+
+        #attention checks
+        for field, should_be_true in attention_checks.items():
+            if getattr(self.player, field) != should_be_true:
+                self.player.attention_failed = True
 
 class TreatmentA_difficult(Page):
     form_model = 'player'
@@ -108,7 +145,7 @@ class TreatmentA_difficult(Page):
     timeout_seconds = 600  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
-        return self.player.treatment == 'A'
+        return self.player.treatment == 'A' and not self.player.attention_failed
 
     def vars_for_template(self):
         # Erste Zeile aus Excel als Beispiel
@@ -122,13 +159,25 @@ class TreatmentA_difficult(Page):
             'tool_difficult_steps1' : False, 'tool_difficult_steps2' : True, 'tool_difficult_steps3': True, 'tool_difficult_steps4': False, 'tool_difficult_steps5': True,
             'tool_difficult_col1': 'city'
         }
+
+        attention_checks = {
+            'data_attention_5': 'third'
+        }
+
+        #normal questions
         score = 0
         for field, should_be_true in correct_answers.items():
             if getattr(self.player, field) == should_be_true:
                 score += 1
         self.player.score += score
 
-        
+        #attention checks
+        for field, should_be_true in attention_checks.items():
+            if getattr(self.player, field) != should_be_true:
+                self.player.attention_failed = True
+
+
+
 
 
 class TreatmentB_difficult(Page):
@@ -139,7 +188,7 @@ class TreatmentB_difficult(Page):
     timeout_seconds = 600  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
-        return self.player.treatment == 'B'
+        return self.player.treatment == 'B' and not self.player.attention_failed
 
     def vars_for_template(self):
         # Erste Zeile aus Excel als Beispiel
@@ -151,17 +200,28 @@ class TreatmentB_difficult(Page):
             'excel_difficult_problem1': 'invalid characters', 
             'excel_difficult_problem2': 'missing col names', 
             'excel_difficult_steps1': False,
-            'excel_difficult_steps1': True,
-            'excel_difficult_steps1': False,
-            'excel_difficult_steps1': True,
-            'excel_difficult_steps1': False,
+            'excel_difficult_steps2': True,
+            'excel_difficult_steps3': False,
+            'excel_difficult_steps4': True,
+            'excel_difficult_steps5': False,
             'excel_difficult_col1': 'city'
         }
+
+        attention_checks = {
+            'data_attention_6': 'third'
+        }
+
+        #normal questions
         score = 0
         for field, should_be_true in correct_answers.items():
             if getattr(self.player, field) == should_be_true:
                 score += 1
         self.player.score += score
+
+        #attention checks
+        for field, should_be_true in attention_checks.items():
+            if getattr(self.player, field) != should_be_true:
+                self.player.attention_failed = True
 
 class TimeUp(Page):
     form_model = 'player'
@@ -169,6 +229,9 @@ class TimeUp(Page):
 
 class PostQuestionnaire(Page):
     form_model = 'player'
+
+    def is_displayed(self):
+        return not self.player.attention_failed
 
     def get_form_fields(self):
         if self.player.treatment == 'A':
@@ -178,6 +241,10 @@ class PostQuestionnaire(Page):
 
 class ThankYou(Page):
     form_model = 'player'
+
+    def is_displayed(self):
+        return not self.player.attention_failed
+
 
     def vars_for_template(self):
             end_time = time.time()
@@ -193,6 +260,10 @@ class ThankYou(Page):
                 total_duration=self.player.participant.vars.get('total_duration', 0)
             )
 
+class Failure(Page):
+    def is_displayed(self):
+        return self.player.attention_failed
+
 page_sequence = [
     Introduction,
     PreQuestionnaire,
@@ -202,6 +273,7 @@ page_sequence = [
     #TimeUp,
     TreatmentA_difficult,
     TreatmentB_difficult,
+    Failure,
     PostQuestionnaire,
     ThankYou
     ]

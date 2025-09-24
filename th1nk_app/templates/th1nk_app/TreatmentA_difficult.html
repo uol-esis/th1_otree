@@ -43,19 +43,30 @@
     </div>
 
     <h2>Let's go to the next task:</h2>
-    <h4>You are an employee in a company. Your supervisor has given you a data file and asked you to prepare it for further analysis.
-        Your task is to examine the dataset and, if necessary, transform it into a database-compliant structure so that it can later be uploaded into a visualization tool and analyzed.</h4>
+    <h4>
+    In this exercise, you will work with a dataset that may require some adjustments before it is fully ready for analysis. 
+    Some columns may be missing proper headers, and there might be a row that does not belong in the dataset. 
+    You will use the provided tool to inspect the data and make necessary changes using its functions. 
+    Pay close attention to the preview table, as it will help you answer the questions at the end.
+    </h4>
 
     <h4>To analyze it, transform the data from the file into a database-compliant data record.
         Here is a small snippet of it.</h4>
 
-    <img src="/static/data/traffic_image.webp"/>
+    <img width="400" src="/static/data/traffic_image.png"/>
     
-
-    <div>
-        <h4>Please use this dataset:</h4>
-        <a href="{% static 'data/traffic_data.xlsx' %}" download>traffic_data.xlsx</a>
-    </div>
+    <h4>Step 1: Open the tool using the frame below.</h4>
+    <h4>Step 2: Download the file <a href="{% static 'data/traffic_data.xlsx' %}" download>traffic_data.xlsx</a>.</h4>
+    <h4>Step 3: Upload the file into the tool.  </h4>
+    <h4>Step 4: Look at the preview table. Attention! Now the tool may not have transformed everything correctly.</h4>
+    <h4>Step 5: Use the provided functions in the tool to fix the issues in the table:
+        <ul>
+            <li>Check the preview carefully for any irregularities or incorrect structures/data.</li>
+            <li>Use the tool’s available functions to adjust the data where necessary.</li>
+        </ul>
+    </h4>
+    <h4>Step 6: Check the preview table again. Everything right?</h4>
+    <h4>Step 7: Answer the following questions based on the updated preview table.</h4>
 
     <h3>Use the following technical tool for this purpose:</h3>
     <div style="width:100%; position:relative;">

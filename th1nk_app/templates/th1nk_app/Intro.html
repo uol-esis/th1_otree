@@ -1,16 +1,30 @@
 {% block content %}
-<h4>On the next pages you will find two tasks, one after the other, each consisting of a data set and a collection of questions.
-    Please answer to the best of your knowledge.</h4>
-
-{% if treatment == 'A' %}
-<h2>Video Tutorial</h2>
-<h4>This short video explains how to use the software tool that you will need for completing the next steps of your task.</h4>
-
-<video width="640" height="360" controls>
-    <source src="{% static 'data/explanation_video.mp4' %}" type="video/mp4">
-    Video format not supported
-</video>
-{% endif %}
-
-{{ next_button }}
+<div style="display:flex; flex-direction:column; gap:30px;">
+    <h4>
+    On the next pages you will find two tasks, each consisting of a dataset and a collection of questions.
+    Your goal is to prepare the data so that it is properly structured for analysis.
+    You will earn points for correctly completing each task, which will be converted into a monetary bonus at the end.
+    Careful work is therefore rewarded.
+    Please answer to the best of your knowledge.
+    </h4>
+    
+    {% if treatment == 'A' %}
+    <h2>Video Tutorial</h2>
+    <h4>This short video explains how to use the software tool you will need for completing the next steps of your task.
+    The tool allows you to upload a dataset, preview it in a database-compliant format, and apply simple transformations if needed.
+    For the first task, the tool can automatically restructure the data; for the second task, you might need to make minor adjustments using its functions.
+    Focus on observing the preview table carefully, as this will help you answer the questions afterwards.</h4>
+    
+    <video width="640" height="360" controls>
+        <source src="{% static 'data/explanation_video.mp4' %}" type="video/mp4">
+        Video format not supported
+    </video>
+    {% endif %}
+    
+    <h4><b>Important:</b> Some questions may include attention checks to ensure careful work.
+    Incorrect answers to these will prevent you from moving to the next page.
+    Points from correctly answered tasks will increase your final reward.</h4>
+    
+    {{ next_button }}
+</div>
 {% endblock %}
