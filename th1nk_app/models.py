@@ -138,6 +138,15 @@ class Player(BasePlayer):
             choices=["By throwing papers randomly on the floor", "In rows and columns", "By using only your memory without writing anything down", "In drawn doodles on a napkin", "By singing the numbers out loud instead of writing them down"],
             widget=widgets.RadioSelect
     )
+#Manipulation check
+    manipulation_check = models.StringField(
+            label="<h5> What is your main task in this part of the study? </h5>",
+            choices=["To transform the dataset into a presentation with charts and figures.",
+                        "To restructure the dataset so that it is stored in a database-compatible (tidy) format.",
+                        "To reduce the dataset so that only a small sample remains.",
+                        "To freely modify the dataset according to your own preferences, without following specific rules."],
+            widget=widgets.RadioSelect
+    )
 
 #Treatment A
 #easy
@@ -242,28 +251,16 @@ class Player(BasePlayer):
             widget=widgets.RadioSelect
     )
 
-    excel_easy_problem3 = models.StringField(
-            label="<h5> Which characteristic shows that the dataset is in a wide rather than a tidy structure? </h5>",
-            choices=[
-            ["exactly_three", "A tidy table must always have exactly three columns: “Variable”, “Value”, and “ID”. This is not the case in this dataset"],
-            ["missing_values", "The dataset is not a tidy table because wide tables always contain more missing values than tidy tables."],
-            ["gender_age", "The dataset is not in a tidy structure because the attributes Gender and Age are spread across multiple columns."],
-            ["repeated_values", "The dataset is a tidy table which can be recognized by the fact that values are repeated across different cells."],
-            ["unique_names", "The dataset is a wide table because there are unique column names."],
-            ],
-            widget=widgets.RadioSelect
-    )
-
     excel_easy_problem4 = models.StringField(
-            label="<h5> How could you edit the wide table to get a tidy table? </h5>",
-            choices=[
-            ["clear_names", "I should label the columns more clearly to show the assignment of values more clearly. It is not necessary to restructure the table for this."],
-            ["pivot", "I should pivot the table to transfer the values of a variable into a column."],
-            ["delete", "I delete duplicate data."],
-            ["new", "I create new tables to store the attributes uniquely."],
-            ["detailed", "I am adding additional columns to record the attributes in more detail."],
-            ],
-            widget=widgets.RadioSelect
+        label="<h5> How could you edit the wide table to get a tidy table? </h5>",
+        choices=[
+        ["clear_names", "I should label the columns more clearly to show the assignment of values more clearly. It is not necessary to restructure the table for this."],
+        ["pivot", "I should pivot the table to transfer the values of a variable into a column."],
+        ["delete", "I delete duplicate data."],
+        ["new", "I create new tables to store the attributes uniquely."],
+        ["detailed", "I am adding additional columns to record the attributes in more detail."],
+        ],
+        widget=widgets.RadioSelect
     )
 
 #difficult
@@ -322,7 +319,7 @@ class Player(BasePlayer):
         blank=True
     )
     difficulties = models.LongStringField(
-        label="What difficulties did you encounter, if any?",
+        label="What difficulties did you encounter during this study, if any?",
         blank=True
     )
     satisfaction = models.StringField(

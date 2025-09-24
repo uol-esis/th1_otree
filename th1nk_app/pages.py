@@ -9,7 +9,6 @@ from .models import C, Subsession, Group, Player
 
 class Introduction(Page):
     form_model = 'player'
-    form_fields = ['prolificID', 'age', 'gender', 'employment_status', 'job_type', 'education']
 
     def vars_for_template(self):
         # Wenn noch keine Startzeit gespeichert ist, speichern
@@ -49,7 +48,7 @@ class Intro(Page):
 
 class TreatmentA_easy(Page):
     form_model = 'player'
-    form_fields = ['tool_easy_checkout', 'tool_easy_problem1', 'data_attention_3', 'tool_easy_problem2']
+    form_fields = ['manipulation_check', 'tool_easy_checkout', 'tool_easy_problem1', 'data_attention_3', 'tool_easy_problem2']
     timeout_seconds = 600  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
@@ -75,7 +74,7 @@ class TreatmentA_easy(Page):
 
 class TreatmentB_easy(Page):
     form_model = 'player'
-    form_fields = ['excel_easy_problem1', 'data_attention_7', 'excel_easy_problem2', 'excel_easy_problem3', 'excel_easy_problem4']
+    form_fields = ['manipulation_check', 'excel_easy_problem1', 'data_attention_7', 'excel_easy_problem2', 'excel_easy_problem4']
     timeout_seconds = 600  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
@@ -90,7 +89,6 @@ class TreatmentB_easy(Page):
         correct_answers = {
             'excel_easy_problem1': 'C',
             'excel_easy_problem2': 'assignment',
-            'excel_easy_problem3': 'gender_age',
             'excel_easy_problem4': 'pivot'
         }
         score = 0
@@ -174,9 +172,9 @@ class PostQuestionnaire(Page):
 
     def get_form_fields(self):
         if self.player.treatment == 'A':
-            return ['post_experience', 'difficulties', 'satisfaction']
+            return ['post_experience', 'difficulties', 'satisfaction','prolificID', 'age', 'gender', 'employment_status', 'job_type', 'education']
         else:
-            return ['difficulties']
+            return ['difficulties','prolificID', 'age', 'gender', 'employment_status', 'job_type', 'education']
 
 class ThankYou(Page):
     form_model = 'player'
@@ -196,7 +194,7 @@ class ThankYou(Page):
             )
 
 page_sequence = [
-    #Introduction,
+    Introduction,
     PreQuestionnaire,
     Intro,
     TreatmentA_easy,
