@@ -15,6 +15,14 @@ class C(BaseConstants):
     EXCEL_FILE_EASY = EXCEL_FILE_EASY = Path(__file__).parent / 'static' / 'data' / 'dataset_easy.xlsx'
     DATA_EASY = pd.read_excel(EXCEL_FILE_EASY)
 
+LIKERT_CHOICES = [
+    (1, "Strongly agree"),
+    (2, "Agree"),
+    (3, "Neutral"),
+    (4, "Disagree"),
+    (5, "Strongly disagree"),
+]
+
 class Subsession(BaseSubsession):
     def creating_session(self):
         #import itertools
@@ -51,46 +59,42 @@ class Player(BasePlayer):
     )
 
     # Pre-questionnaire
-    data_conversion = models.StringField(
-        label="<h5> Data conversion (modifying the format in which the data is stored in order to make it more usable) </h5>",
-        choices=["I know the tools and practices used in data conversion.", "I understand the impacts that converting data may have on its use.", "I'm capable of converting data in order to increase its use value.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
-        widget=widgets.RadioSelect
-    )
-    data_cleansing = models.StringField(
-        label=" <h5> Data cleansing (modifying data in order to reduce any errors which could affect quality) </h5>",
-        choices=["I know the tools and practices used in data cleansing.", "I understand the effects and limits that data cleansing may have on its ability to be used.", "I'm capable of converting data in order to increase its use value.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
-        widget=widgets.RadioSelect
-    )
-    data_transformation = models.StringField(
-        label="<h5> Data transformation (organizing, structuring, compiling and aggregating data in order to aid in analysis and decision making) </h5>",
-        choices=["I know the tools and practices used in data transformation.", "I understand the methods used in data transformation and the consequences of using different tools and practices.", "I'm capable of transforming data in order to increase its value for analysis and decision making.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
-        widget=widgets.RadioSelect
-    )
-    data_metadata = models.StringField(
-        label="<h5> Creating business metadata (adding information to data, in particular to document any transformation, in order to aid in data classification, sharing and reuse) </h5>",
-        choices=["I understand the concept of business metadata.", "I understand the concept of metadata and its use in contextualizing data.", "I'm capable of creating business metadata in order to aid in data classification, sharing and reuse.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
-        widget=widgets.RadioSelect
-    )
-    data_visualization = models.StringField(
-         label= "<h5> Creating data visualizations (creating graphical representations in order to communicate the significance of data) </h5>",
-         choices=["I understand the different types of data visualizations.", "I understand the consequences that the choice of data visualization has on its ability to be communicated.", "I'm capable of creating graphical representations which communicate the significance of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
-         widget=widgets.RadioSelect
-    )
-    data_interactive = models.StringField(
-         label="<h5> Interactive data querying (progressively understanding the significance of data by using interactive analysis to derive an explanation of the reality it represents) </h5>",
-         choices=["I understand the methods and tools used to interactively query data.", "I understand the possibilities and limits of interactive data queries.", "I'm capable of interactively querying data in order to understand its significance.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
-         widget=widgets.RadioSelect
-    )
-    data_interpretation = models.StringField(
-         label="<h5> Data interpretation (interpreting data in order to understand its significance and derive and explanation of the reality it represents) </h5>",
-         choices=["I understand the methods and tools used to interpret data.", "I understand how interpreting data can explain reality.", "I'm capable of interpreting data in order to understand its significance.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
-         widget=widgets.RadioSelect
-    )
-    data_communication = models.StringField(
-        label="<h5> Communicating the significance of data (sharing the significance of data with other people, verbally or in writing) </h5>",
-        choices=["I understand the practices used to share the significance of data.", "I understand the effects of using good practices to communicate the significance of data.", "I'm capable of communicating the significance of data.", "My current work requires me to implement this skill.", "My current level in this skill is sufficient to carry out my work."],
-        widget=widgets.RadioSelect
-    )
+    # --- Data Identification (DI) ---
+    DLSE_DI1 = models.IntegerField(label="I can define what data is.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DI2 = models.IntegerField(label="I am able to describe different types of data.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DI3 = models.IntegerField(label="I am aware of various formats in which data can be stored.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DI4 = models.IntegerField(label="I am able to find data that is relevant to me.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DI5 = models.IntegerField(label="I am able to explain data from my area of responsibility.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DI6 = models.IntegerField(label="I know how to collect data that is relevant to me.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DI7 = models.IntegerField(label="I know how to access the data relevant to me.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+
+    # --- Data Processing (DP) ---
+    DLSE_DP1 = models.IntegerField(label="I am able to assess the quality of data.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP2 = models.IntegerField(label="I am able to create summarized reports on the data available to me.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP3 = models.IntegerField(label="I know how to create diagrams based on data.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP4 = models.IntegerField(label="I know how to create summary tables from data.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP5 = models.IntegerField(label="I am able to interpret data.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP6 = models.IntegerField(label="I am able to derive predictions from data.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP7 = models.IntegerField(label="I am able to find patterns in data.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP8 = models.IntegerField(label="I am able to create reports based on data analysis.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP9 = models.IntegerField(label="I am able to communicate the results of data analyses.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP10 = models.IntegerField(label="I know which tools I need to use for data visualizations.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP11 = models.IntegerField(label="I am able to explain data visualizations.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP12 = models.IntegerField(label="I am able to develop a narrative from a data analysis.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP13 = models.IntegerField(label="I am able to assess whether a data source is relevant for me.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP14 = models.IntegerField(label="I am able to categorize data according to its content.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP15 = models.IntegerField(label="I am able to organize data on my computer.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DP16 = models.IntegerField(label="I am able to determine a convention for versioning data records.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+
+    # --- Data Sharing & Management (DMS) ---
+    DLSE_DMS1 = models.IntegerField(label="I know how to document data for others.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DMS2 = models.IntegerField(label="I am able to make data accessible to others.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DMS3 = models.IntegerField(label="I can distinguish whether data is stored on my computer or in the cloud.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DMS4 = models.IntegerField(label="I know how to save data.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DMS5 = models.IntegerField(label="I know methods for storing data that are worth protecting under data protection law.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DMS6 = models.IntegerField(label="I know the laws and regulations on the protection of personal data.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DMS7 = models.IntegerField(label="I know who has which data in my organization.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
+    DLSE_DMS8 = models.IntegerField(label="I know which data I am allowed to use.", choices=LIKERT_CHOICES, widget=widgets.RadioSelectHorizontal)
 
 #Attention checks
     data_attention_1 = models.StringField(
