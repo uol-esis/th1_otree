@@ -4,9 +4,33 @@
     Your responses will be kept confidential and used only for research purposes.</h5>
 <div style="margin-top: 50px;"></div>
 
-<form method="post">
-    {{ formfields }}
-    {{ next_button }}
+<style>
+    .items-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 
-</form>
+    .item {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    .item h5 {
+        margin-bottom: 10px;
+    }
+
+</style>
+
+<div class="items-grid">
+    {% for field in randomized_fields %}
+        <div class="item">
+            {{ formfield field }}
+        </div>
+    {% endfor %}
+</div>
+
+{{ next_button }}
 {% endblock %}

@@ -3,12 +3,12 @@ import os
 from django.core.files.storage import default_storage
 from django.http import HttpResponseRedirect
 import time
+import random
 
 from .models import C, Subsession, Group, Player
 
 class Introduction(Page):
     form_model = 'player'
-    form_fields = ['prolificID', 'age', 'gender', 'employment_status', 'job_type', 'education']
 
     def is_displayed(self):
         return not self.player.attention_failed
@@ -21,22 +21,31 @@ class Introduction(Page):
 
 class PreQuestionnaire(Page):
     form_model = 'player'
-    #Questions from questionnaire of LanglaisMosconiGuillemette
-    form_fields = ['data_conversion',
-        'data_cleansing',
-        'data_transformation',
-        'data_metadata',
-        'data_visualization',
-        'data_interactive',
-        'data_attention_2',
-        'data_interpretation',
-        'data_communication',
-        ]
-    
-    def before_next_page(self):
+    #Questions from questionnaire of „Kim, J., Hong, L., and Evans, S. 2024. “Toward measuring data literacy for higher education: Developing
+                                     #and validating a data literacy self-efficacy scale,” Journal of the Association for Information Science and Technology (75:8), pp. 916–931.“
+    form_fields = [
+    'DLSE_DI1', 'DLSE_DI2', 'DLSE_DI3', 'DLSE_DI4', 'DLSE_DI5', 'DLSE_DI6', 'data_attention_2', 'DLSE_DI7',
+    'DLSE_DP1', 'DLSE_DP2', 'DLSE_DP3', 'DLSE_DP4', 'DLSE_DP5',
+    'DLSE_DP6', 'DLSE_DP7', 'DLSE_DP8', 'DLSE_DP9', 'DLSE_DP10',
+    'DLSE_DP11', 'DLSE_DP12', 'DLSE_DP13', 'DLSE_DP14', 'DLSE_DP15', 'DLSE_DP16',
+    'DLSE_DMS1', 'DLSE_DMS2', 'DLSE_DMS3', 'DLSE_DMS4',
+    'DLSE_DMS5', 'DLSE_DMS6', 'DLSE_DMS7', 'DLSE_DMS8'
+    ]
 
+    def vars_for_template(player):
+            fields = ['DLSE_DI1', 'DLSE_DI2', 'DLSE_DI3', 'DLSE_DI4', 'DLSE_DI5', 'DLSE_DI6', 'data_attention_2', 'DLSE_DI7',
+                     'DLSE_DP1', 'DLSE_DP2', 'DLSE_DP3', 'DLSE_DP4', 'DLSE_DP5',
+                     'DLSE_DP6', 'DLSE_DP7', 'DLSE_DP8', 'DLSE_DP9', 'DLSE_DP10',
+                     'DLSE_DP11', 'DLSE_DP12', 'DLSE_DP13', 'DLSE_DP14', 'DLSE_DP15', 'DLSE_DP16',
+                     'DLSE_DMS1', 'DLSE_DMS2', 'DLSE_DMS3', 'DLSE_DMS4',
+                     'DLSE_DMS5', 'DLSE_DMS6', 'DLSE_DMS7', 'DLSE_DMS8'
+                     ]
+            random.shuffle(fields)  # randomizes the order
+            return dict(randomized_fields=fields)
+
+    def before_next_page(self):
         attention_checks = {
-            'data_attention_2': 'rows',
+            'data_attention_2': 1
         }
 
         for field, should_be_true in attention_checks.items():
@@ -54,7 +63,7 @@ class Intro(Page):
 
 class TreatmentA_easy(Page):
     form_model = 'player'
-    form_fields = ['tool_easy_checkout', 'tool_easy_problem1', 'data_attention_3', 'tool_easy_problem2']
+    form_fields = ['manipulation_check', 'tool_easy_checkout', 'tool_easy_problem1', 'data_attention_3', 'tool_easy_problem2']
     timeout_seconds = 600  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
@@ -91,7 +100,7 @@ class TreatmentA_easy(Page):
 
 class TreatmentB_easy(Page):
     form_model = 'player'
-    form_fields = ['excel_easy_problem1', 'data_attention_7', 'excel_easy_problem2', 'excel_easy_problem3', 'excel_easy_problem4']
+    form_fields = ['manipulation_check', 'excel_easy_problem1', 'data_attention_7', 'excel_easy_problem2', 'excel_easy_problem4']
     timeout_seconds = 600  # TODO hier 8 Minuten einstellen
 
     def is_displayed(self):
@@ -106,7 +115,6 @@ class TreatmentB_easy(Page):
         correct_answers = {
             'excel_easy_problem1': 'C',
             'excel_easy_problem2': 'assignment',
-            'excel_easy_problem3': 'gender_age',
             'excel_easy_problem4': 'pivot'
         }
 
@@ -169,7 +177,7 @@ class TreatmentA_difficult(Page):
                 self.player.attention_failed = True
 
 
-        
+
 
 
 class TreatmentB_difficult(Page):
@@ -227,9 +235,9 @@ class PostQuestionnaire(Page):
 
     def get_form_fields(self):
         if self.player.treatment == 'A':
-            return ['post_experience', 'difficulties', 'satisfaction']
+            return ['post_experience', 'difficulties', 'satisfaction','prolificID', 'age', 'gender', 'employment_status', 'job_type', 'education']
         else:
-            return ['difficulties']
+            return ['difficulties','prolificID', 'age', 'gender', 'employment_status', 'job_type', 'education']
 
 class ThankYou(Page):
     form_model = 'player'
@@ -251,13 +259,13 @@ class ThankYou(Page):
                 score=self.player.score,
                 total_duration=self.player.participant.vars.get('total_duration', 0)
             )
-    
+
 class Failure(Page):
     def is_displayed(self):
         return self.player.attention_failed
 
 page_sequence = [
-    
+    Introduction,
     PreQuestionnaire,
     Intro,
     TreatmentA_easy,
@@ -265,9 +273,7 @@ page_sequence = [
     #TimeUp,
     TreatmentA_difficult,
     TreatmentB_difficult,
-    Introduction,
     Failure,
     PostQuestionnaire,
-    ThankYou,
-    
+    ThankYou
     ]
