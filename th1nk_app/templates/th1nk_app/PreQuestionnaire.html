@@ -1,36 +1,49 @@
 {% block content %}
-<h5>Before we begin, please complete the following short questionnaire about your personal data skills.
-    This will help us better understand your experience with working with data.
-    Your responses will be kept confidential and used only for research purposes.</h5>
+<h4>Pre Questionnaire</h4>
+<p> Below you will be shown a series of statements and asked to indicate your agreement or disagreement based on your personal judgment.</p>
 <div style="margin-top: 50px;"></div>
 
 <style>
-    .items-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
+    table.likert {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
     }
 
-    .item {
+    table.likert th, table.likert td {
         border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
+        padding: 8px;
+        text-align: center;
+    }
+
+    table.likert th {
         background-color: #f9f9f9;
     }
 
-    .item h5 {
-        margin-bottom: 10px;
+    table.likert td.label-cell {
+        text-align: left;
+        width: 40%;
     }
-
 </style>
 
-<div class="items-grid">
-    {% for field in randomized_fields %}
-        <div class="item">
-            {{ formfield field }}
-        </div>
-    {% endfor %}
-</div>
+<table class="table">
+    <tr>
+        <th>Question</th>
+         {% for value, label in reversed_choices %}
+                <th>{{ label }}</th>
+            {% endfor %}
+    </tr>
+    {{ for field in form }}
+        <tr>
+            <th>{{ field.label }}</th>
+            {{ for choice in field }}
+                <td>{{ choice }}</td>
+            {{ endfor }}
+        </tr>
+    {{ endfor }}
+</table>
+
+
 
 {{ next_button }}
 {% endblock %}
