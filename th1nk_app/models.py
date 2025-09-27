@@ -15,6 +15,26 @@ class C(BaseConstants):
     EXCEL_FILE_EASY = EXCEL_FILE_EASY = Path(__file__).parent / 'static' / 'data' / 'dataset_easy.xlsx'
     DATA_EASY = pd.read_excel(EXCEL_FILE_EASY)
 
+    LIKERT_CHOICES = [
+        (7, "Completely disagree"),
+        (6, "Strongly disagree"),
+        (5, "Disagree"),
+        (4, "Neutral"),
+        (3, "Agree"),
+        (2, "Strongly agree"),
+        (1, "Completely agree"),
+    ]
+
+LIKERT_CHOICES = [
+    (7, "Completely disagree"),
+    (6, "Strongly disagree"),
+    (5, "Disagree"),
+    (4, "Neutral"),
+    (3, "Agree"),
+    (2, "Strongly agree"),
+    (1, "Completely agree"),
+]
+
 
 
 class Subsession(BaseSubsession):
@@ -32,16 +52,6 @@ class Player(BasePlayer):
     treatment = models.StringField()
     score = models.IntegerField(initial=0)
     attention_failed = models.BooleanField(initial=False)
-
-    LIKERT_CHOICES = [
-    (7, "Completely disagree"),
-    (6, "Strongly disagree"),
-    (5, "Disagree"),
-    (4, "Neutral"),
-    (3, "Agree"),
-    (2, "Strongly agree"),
-    (1, "Completely agree"),
-]
 
     # Introduction
     prolificID = models.IntegerField(label='Prolific ID')

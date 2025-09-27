@@ -33,8 +33,8 @@ class PreQuestionnaire(Page):
     ]
 
     def vars_for_template(self):
-        LIKERT_CHOICES = self.player.LIKERT_CHOICES
-        return dict(reversed_choices=LIKERT_CHOICES)
+        
+        return dict(reversed_choices=C.LIKERT_CHOICES)
             
             
     def get_form_fields(self):
