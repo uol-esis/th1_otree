@@ -43,7 +43,7 @@ class Subsession(BaseSubsession):
         #A = Tool, B = Excel
         for p in self.get_players():
             #p.treatment = random.choice(C.TREATMENT)
-            p.treatment = "B"
+            p.treatment = "A"
 
 class Group(BaseGroup):
     pass
@@ -220,7 +220,7 @@ class Player(BasePlayer):
     tool_easy_problem1 = models.StringField(choices= [
         ['false format', 'The values are not properly formatted to analyze them.'],
         ['multiple attributes' , 'The values depend on variables, each spans multiple columns.'],
-        ['not normalized', 'Nested structures are always normalized and therefore not applicable for visualization tools.'],
+        ['not normalized', 'Nested structures are always not normalized and therefore not applicable for visualization tools.'],
         ['flat structure','The structure is flat and clean, but the cells content too much information which cannot be processed accurately']
         ],
         label='<h5> Why is the nested structure of the dataset problematic? </h5>',
@@ -341,23 +341,23 @@ class Player(BasePlayer):
     )
 
     excel_difficult_steps1 = models.BooleanField(
-        label="<h5> Did you <b> replace individual values with new values </b> in the raw data? </h5>"
+        label="<h5> Is the processing step <b>remove duplicates</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
 
     excel_difficult_steps2 = models.BooleanField(
-        label="<h5> Did you <b> change column names </b> in the raw data?  </h5>"
+        label="<h5>  Is the processing step <b>remove rows with invalid values</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
 
     excel_difficult_steps3 = models.BooleanField(
-        label="<h5> Did you <b> delete duplicate entries </b> in the raw data?  </h5>"
+        label="<h5> Is the processing step <b>add column headers</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
 
     excel_difficult_steps4 = models.BooleanField(
-        label="<h5> Did you <b> split values from one column into several new columns </b> in the raw data? </h5>"
+       label="<h5> Is the processing step <b>resolve multiple headers</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
 
     excel_difficult_steps5 = models.BooleanField(
-        label="<h5> Did you <b> convert time units </b> in the raw data? </h5>"
+        label=" <h5> Is the processing step <b>split cells containing multiple values into new columns</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
 
     excel_difficult_col1 = models.StringField(

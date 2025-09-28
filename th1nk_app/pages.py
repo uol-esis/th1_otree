@@ -266,12 +266,12 @@ class Failure(Page):
 
 page_sequence = [
     Introduction,
-    #PreQuestionnaire,
-    #Intro,
-    #FirstTaskA,
+    PreQuestionnaire,
+    Intro,
+    FirstTaskA,
     FirstTaskB,
     #TimeUp,
-    #SecondTaskA,
+    SecondTaskA,
     SecondTaskB,
     Failure,
     PostQuestionnaire,
