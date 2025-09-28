@@ -1,4 +1,5 @@
 {% block content %}
+<h4>Let's start with the first task:</h4>
 <div style="display:flex; flex-direction:column; gap:30px;">
     <div style="
         display: flex;
@@ -36,21 +37,20 @@
                 <li>Every cell is a single value</li>
             </ul>
         </p>
-        <h5>For example this table satisfy all requirements:</h5>
+        <p>For example this table satisfy all requirements:</p>
         <img width=400 src="/static/data/tidy_data.png"/>
     </div>
 
-    <h4>Let's start with the first task</h4>
      <p>
          In this exercise, you will tidy a small dataset so that it is ready for analysis.
-         The dataset contains a header that is not yet database-compliant. Using the provided tool, you can transform the data into tidy format.
+         The dataset contains a header that is not yet in a tidy format. Using the provided tool, you can transform the data to comply the requirements.
          Pay close attention to the preview table – it will help you answer the upcoming questions.
     </p>
 
     <p>Here is a small snippet of the data.</p>
     <img src="/static/data/city_snippet.png"/
 
-    <p>Step 1: Open the tool using the frame below.</p>
+    <p>Step 1: Use the tool in the frame below.</p>
     <p>Step 2: Download the file <a href="{% static 'data/city_data.xlsx' %}" download>city_data.xlsx</a>.</p>
     <p>Step 3: Upload the file into the tool. </p>
     <p>Step 4: Click the "Generate" button to transform the data automatically.</p>
@@ -63,7 +63,6 @@
         </iframe>
     </div>
 
-    <h5>After completing the task, please answer the following questions:</h5>
     <div>
         {{ formfields }}
     </div>

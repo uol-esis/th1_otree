@@ -1,5 +1,5 @@
 {% block content %}
-
+<h4>Let's go to the next task:</h4>
 <div style="display:flex; flex-direction:column; gap:30px;">
 
     <div style="
@@ -29,52 +29,48 @@
         ">
             i
         </div>
-        <h4>
-            This exercise is about database-compliant data records.
-            Such a data record has to satisfy the following requirements to be database compliant:
+        <p>
+            Remember!
+            A tidy data record has to satisfy the following requirements to be database compliant:
             <ul>
                 <li>Every column is a variable</li>
                 <li>Every row is an observation</li>
                 <li>Every cell is a single value</li>
             </ul>
-        </h4>
-        <h4>For example this table satisfy all requirements:</h4>
+        </p>
+        <p>For example this table satisfy all requirements:</p>
         <img width=400 src="/static/data/tidy_data.png"/>
     </div>
 
-    <h2>Let's go to the next task:</h2>
-    <h4>
-    In this exercise, you will work with a dataset that may require some adjustments before it is fully ready for analysis. 
-    Some columns may be missing proper headers, and there might be a row that does not belong in the dataset. 
-    You will use the provided tool to inspect the data and make necessary changes using its functions. 
-    Pay close attention to the preview table, as it will help you answer the questions at the end.
-    </h4>
-
-    <h4>To analyze it, transform the data from the file into a database-compliant data record.
-        Here is a small snippet of it.</h4>
+    <p>
+        In this exercise, you will work again with a dataset that is not yet tidy.
+        Some columns may lack proper headers, and one row might not belong in the dataset.
+        Your task is to use our provided tool to transform the file into a tidy format.
+        Carefully check the dataset and make the necessary adjustments to answer the questions at the end.
+    </p>
+    <p> Here is a small snippet of the data.</p>
 
     <img width="400" src="/static/data/traffic_snippet.png"/>
     
-    <h4>Step 1: Open the tool using the frame below.</h4>
-    <h4>Step 2: Download the file <a href="{% static 'data/traffic_data.xlsx' %}" download>traffic_data.xlsx</a>.</h4>
-    <h4>Step 3: Upload the file into the tool.  </h4>
-    <h4>Step 4: Look at the preview table. Attention! Now the tool may not have transformed everything correctly.</h4>
-    <h4>Step 5: Use the provided functions in the tool to fix the issues in the table:
+    <p>Step 1: Use the tool in the frame below.</p>
+    <p>Step 2: Download the file <a href="{% static 'data/traffic_data.xlsx' %}" download>traffic_data.xlsx</a>.</p>
+    <p>Step 3: Upload the file into the tool.  </p>
+    <p>Step 4: Generate a structure and look at the preview table. Attention! Now the tool may not have transformed everything correctly.</p>
+    <p>Step 5: Use the provided functions in the tool to fix the issues in the table:
         <ul>
             <li>Check the preview carefully for any irregularities or incorrect structures/data.</li>
-            <li>Use the tool’s available functions to adjust the data where necessary.</li>
+            <li>Use the tool’s available functions, called converters, to adjust the data where necessary.</li>
         </ul>
-    </h4>
-    <h4>Step 6: Check the preview table again. Everything right?</h4>
-    <h4>Step 7: Answer the following questions based on the updated preview table.</h4>
+    </p>
+    <p>Step 6: Check the preview table again. Everything right? You do not need to finally upload the file within the tool.</p>
+    <p>Step 7: Answer the following questions based on the updated preview table.</p>
 
-    <h3>Use the following technical tool for this purpose:</h3>
     <div style="width:100%; position:relative;">
         <iframe src="https://th1nk.pg-doener-dev.virt.uni-oldenburg.de"
             style="width:120%; height:600px; position:relative; left:50%; transform:translateX(-50%);" frameborder="0">
         </iframe>
     </div>
-    <h5>After completing the task, please answer the following questions.</h5>
+
 </div>
 
 {{ formfields }}
