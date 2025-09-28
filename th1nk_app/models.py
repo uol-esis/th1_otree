@@ -191,7 +191,7 @@ class Player(BasePlayer):
                 ["rows" ,"In rows and columns"], 
                 ["memory", "By using only your memory without writing anything down"], 
                 ["doodles","In drawn doodles on a napkin"], 
-                 ["numbers","By singing the numbers out loud instead of writing them down"]
+                ["numbers","By singing the numbers out loud instead of writing them down"]
             ],
             widget=widgets.RadioSelect
     )

@@ -1,0 +1,62 @@
+{% block content %}
+
+<div style="display:flex; flex-direction:column; gap:30px;">
+       <div style="
+         display: flex;
+         flex-direction: column;
+         gap: 16px;
+         background-color: #f9f9ff;
+         border: 1px solid #cbd5e0;
+         border-radius: 12px;
+         padding: 20px;
+         max-width: 600px;
+         margin: 20px auto;
+         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+         font-family: Arial, sans-serif;
+      ">
+        <div style="
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3182ceb0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+         ">
+            i
+         </div>
+        <p>
+            Remember!
+            A tidy data record has to satisfy the following requirements to be database compliant:
+            <ul>
+                <li>Every column is a variable</li>
+                <li>Every row is an observation</li>
+                <li>Every cell is a single value</li>
+            </ul>
+        </p>
+        <h5>For example this table satisfy all requirements:</h5>
+        <img width=400 src="/static/data/tidy_data.png"/>
+    </div>
+
+
+   <h4>Let's start with the first task:</h4>
+   <p>
+       In this exercise, you will tidy a small dataset so that it is ready for analysis.
+       The dataset contains a header that is not yet database-compliant. Using Excel e.g., you can transform the data into tidy format.
+   </p>
+
+   <p>Here is a small snippet of the data.</p>
+   <img src="/static/data/city_snippet.png"/>
+
+   <p>Step 1: Download the file <a href="{% static 'data/city_data.xlsx' %}" download>city_data.xlsx</a>.</p>
+   <p>Step 2: Examine the dataset and make any adjustments necessary to make it database-compliant.</p>
+   <p>Step 3: Once you have structured the data correctly, answer the following questions based on your result.</p>
+
+   {{ formfields }}
+   {{ next_button }}
+</div>
+
+{% endblock %}

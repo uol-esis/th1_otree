@@ -61,7 +61,7 @@ class Intro(Page):
             return dict(treatment=self.player.treatment, base=self.session.config['participation_fee'], additional=self.session.config['real_world_currency_per_point'] )
 
 
-class TreatmentA_easy(Page):
+class FirstTaskA(Page):
     form_model = 'player'
     form_fields = ['manipulation_check', 'tool_easy_checkout', 'tool_easy_problem1', 'data_attention_3', 'tool_easy_problem2']
     timeout_seconds = 600  # TODO hier 8 Minuten einstellen
@@ -98,7 +98,7 @@ class TreatmentA_easy(Page):
                 self.player.attention_failed = True
 
 
-class TreatmentB_easy(Page):
+class FirstTaskB(Page):
     form_model = 'player'
     form_fields = ['manipulation_check', 'excel_easy_problem1', 'data_attention_7', 'excel_easy_problem2', 'excel_easy_problem4']
     timeout_seconds = 600  # TODO hier 8 Minuten einstellen
@@ -134,7 +134,7 @@ class TreatmentB_easy(Page):
             if getattr(self.player, field) != should_be_true:
                 self.player.attention_failed = True
 
-class TreatmentA_difficult(Page):
+class SecondTaskA(Page):
     form_model = 'player'
     form_fields = [
         'tool_difficult_problem1', 'tool_difficult_problem2',
@@ -180,7 +180,7 @@ class TreatmentA_difficult(Page):
 
 
 
-class TreatmentB_difficult(Page):
+class SecondTaskB(Page):
     form_model = 'player'
     form_fields = ['excel_difficult_problem1', 'excel_difficult_problem2',
                    'excel_difficult_steps1',  'excel_difficult_steps2',  'excel_difficult_steps3',  'excel_difficult_steps4',  'excel_difficult_steps5',
@@ -266,13 +266,13 @@ class Failure(Page):
 
 page_sequence = [
     Introduction,
-    PreQuestionnaire,
+    #PreQuestionnaire,
     Intro,
-    TreatmentA_easy,
-    TreatmentB_easy,
+    FirstTaskA,
+    FirstTaskB,
     #TimeUp,
-    TreatmentA_difficult,
-    TreatmentB_difficult,
+    SecondTaskA,
+    SecondTaskB,
     Failure,
     PostQuestionnaire,
     ThankYou
