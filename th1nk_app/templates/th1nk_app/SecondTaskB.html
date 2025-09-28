@@ -1,0 +1,68 @@
+{% block content %}
+
+<div style="display:flex; flex-direction:column; gap:30px;">
+      <div style="
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        background-color: #f9f9ff;
+        border: 1px solid #cbd5e0;
+        border-radius: 12px;
+        padding: 20px;
+        max-width: 600px;
+        margin: 20px auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+      ">
+        <div style="
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3182ceb0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        ">
+            i
+        </div>
+        <p>
+            Remember!
+            A tidy data record has to satisfy the following requirements:
+            <ul>
+                <li>Every column is a variable</li>
+                <li>Every row is an observation</li>
+                <li>Every cell is a single value</li>
+            </ul>
+        </p>
+        <p>For example this table satisfy all requirements:</p>
+        <img width=400 src="/static/data/tidy_data.png"/>
+    </div>
+
+
+  <h4>Let's go to the next task:</h4>
+<p>
+    In this exercise, you will work again with a dataset that is not yet tidy.
+    Some columns may lack proper headers, and one row might not belong in the dataset.
+    Your task is to use Excel, pen & paper, or whatever method works best for you, to transform the file into a tidy format.
+    Carefully check the dataset and make the necessary adjustments to answer the questions at the end.
+</p>
+
+<p>Here is a small snippet of the data.</p>
+<img width="400" src="/static/data/traffic_snippet.png"/>
+
+<p>Step 1: Download the file <a href="{% static 'data/traffic_data.xlsx' %}" download>traffic_data.xlsx</a>.</p>
+<p>Step 2: Examine the dataset carefully. Look for columns without proper headers and any rows that seem incorrect or out of place.</p>
+<p>Step 3: Make any necessary adjustments so that the dataset is tidy: every column should be a variable, every row an observation, and each cell should contain a single value.</p>
+<p>Step 4: Once you have structured the data correctly, answer the following questions based on your result.</p>
+
+<p>You do not need to submit the transformed file; just answer the questions.</p>
+  <div style="width:100%; position:relative;">
+
+  {{ formfields }}
+  {{ next_button }}
+</div>
+
+{% endblock %}

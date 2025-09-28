@@ -15,13 +15,27 @@ class C(BaseConstants):
     EXCEL_FILE_EASY = EXCEL_FILE_EASY = Path(__file__).parent / 'static' / 'data' / 'dataset_easy.xlsx'
     DATA_EASY = pd.read_excel(EXCEL_FILE_EASY)
 
+    LIKERT_CHOICES = [
+        (7, "Completely disagree"),
+        (6, "Strongly disagree"),
+        (5, "Disagree"),
+        (4, "Neutral"),
+        (3, "Agree"),
+        (2, "Strongly agree"),
+        (1, "Completely agree"),
+    ]
+
 LIKERT_CHOICES = [
-    (1, "Strongly agree"),
-    (2, "Agree"),
-    (3, "Neutral"),
-    (4, "Disagree"),
-    (5, "Strongly disagree"),
+    (7, "Completely disagree"),
+    (6, "Strongly disagree"),
+    (5, "Disagree"),
+    (4, "Neutral"),
+    (3, "Agree"),
+    (2, "Strongly agree"),
+    (1, "Completely agree"),
 ]
+
+
 
 class Subsession(BaseSubsession):
     def creating_session(self):
@@ -177,7 +191,7 @@ class Player(BasePlayer):
                 ["rows" ,"In rows and columns"], 
                 ["memory", "By using only your memory without writing anything down"], 
                 ["doodles","In drawn doodles on a napkin"], 
-                 ["numbers","By singing the numbers out loud instead of writing them down"]
+                ["numbers","By singing the numbers out loud instead of writing them down"]
             ],
             widget=widgets.RadioSelect
     )
@@ -185,7 +199,7 @@ class Player(BasePlayer):
     manipulation_check = models.StringField(
             label="<h5> What is your main task in this part of the study? </h5>",
             choices=["To transform the dataset into a presentation with charts and figures.",
-                        "To restructure the dataset so that it is stored in a database-compatible (tidy) format.",
+                        "To restructure the dataset so that it is stored in a tidy format.",
                         "To reduce the dataset so that only a small sample remains.",
                         "To freely modify the dataset according to your own preferences, without following specific rules."],
             widget=widgets.RadioSelect
@@ -204,10 +218,10 @@ class Player(BasePlayer):
     )
 
     tool_easy_problem1 = models.StringField(choices= [
-        ['false format', 'The values are not properly formatted.'],
-        ['multiple attributes' , 'The values depend on multiple attributes that are not clearly structured.'],
-        ['not normalized', 'The structure is not normalized.'],
-        ['flat structure','The structure is flat and clean, but the cells contents too much information.']
+        ['false format', 'The values are not properly formatted to analyze them.'],
+        ['multiple attributes' , 'The values depend on variables, each spans multiple columns.'],
+        ['not normalized', 'Nested structures are always not normalized and therefore not applicable for visualization tools.'],
+        ['flat structure','The structure is flat and clean, but the cells content too much information which cannot be processed accurately']
         ],
         label='<h5> Why is the nested structure of the dataset problematic? </h5>',
         widget=widgets.RadioSelect
@@ -227,9 +241,9 @@ class Player(BasePlayer):
     tool_difficult_problem1 = models.StringField(
         label="<h5> What problem areas do you identify in the raw data and how would you deal with these challenges in each case? </h5>",
         choices=[
-           ["invalid characters" , "Invalid values: Replace special characters with appropriate values or remove them."],
-           ["inconsistent spellings", "Inconsistent spellings in text categories: Standardize them using mapping or text normalization (lowercasing, removing special characters)."],
-           ["missing values", "Missing cell entries: Decide whether to fill in missing entries through imputation or remove rows with too many missing values."]
+           ["invalid characters" , "Invalid values: Correct them with appropriate values if possible or remove them."],
+           ["inconsistent spellings", "Inconsistent spellings in text categories: Standardize them using mapping or text normalization (e.g. lowercasing)."],
+           ["missing values", "Missing cell entries: Decide whether to fill in missing entries through assumptions or remove rows with too many missing values."]
         ],
         widget=widgets.RadioSelect
     )
@@ -244,20 +258,20 @@ class Player(BasePlayer):
     )
 
     tool_difficult_steps1= models.BooleanField(
-        label="<h5> Is the processing step <b>remove duplicates</b> necessary to prepare the data for analysis </h5>"
+        label="<h5> Is the processing step <b>remove duplicates</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
 
     tool_difficult_steps2 = models.BooleanField(
-        label="<h5>  Is the processing step <b>remove rows with invalid values</b> necessary to prepare the data for analysis </h5>"
+        label="<h5>  Is the processing step <b>remove rows with invalid values</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
     tool_difficult_steps3 = models.BooleanField(
-        label="<h5> Is the processing step <b>add column headers</b> necessary to prepare the data for analysis </h5>"
+        label="<h5> Is the processing step <b>add column headers</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
     tool_difficult_steps4 = models.BooleanField(
-        label="<h5> Is the processing step <b>resolve multiple headers</b> necessary to prepare the data for analysis </h5>"
+        label="<h5> Is the processing step <b>resolve multiple headers</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
     tool_difficult_steps5 = models.BooleanField(
-        label=" <h5> Is the processing step <b>split cells containing multiple values into new columns</b> necessary to prepare the data for analysis </h5>"
+        label=" <h5> Is the processing step <b>split cells containing multiple values into new columns</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
 
     tool_difficult_col1 = models.StringField(
@@ -273,7 +287,7 @@ class Player(BasePlayer):
 #Treatment B
 #easy
     excel_easy_problem1 = models.StringField(
-            label="<h5> How would you restructure this data so that it can be stored in a relational database? </h5>",
+            label="<h5> How would you restructure this data so that it complies with the requirements for a tidy format? </h5>",
             choices=[
             ["A", "District, Gender, Age from, Age to, Amount "],
             ["B", "Gender, Age and District organized in Rows, Amounts assigned to columns"],
@@ -284,21 +298,21 @@ class Player(BasePlayer):
     )
 
     excel_easy_problem2 = models.StringField(
-            label="<h5> What is a common problem in the given dataset? </h5>",
+            label="<h5> What is the main problem in the given dataset? </h5>",
             choices=[
             ["headers", "Missing column headers"],
             ["delimiters", "Inconsistent use of delimiters"],
-            ["assignment", "Assignment of values to multiple attributes"],
+            ["assignment", "Assignment of values to multiple variables"],
             ["keys", "Duplicate primary keys"],
             ],
             widget=widgets.RadioSelect
     )
 
     excel_easy_problem4 = models.StringField(
-        label="<h5> How could you edit the wide table to get a tidy table? </h5>",
+        label="<h5> How could you edit the data to get a tidy table? </h5>",
         choices=[
-        ["clear_names", "I should label the columns more clearly to show the assignment of values more clearly. It is not necessary to restructure the table for this."],
-        ["pivot", "I should pivot the table to transfer the values of a variable into a column."],
+        ["clear_names", "I should label the columns more clearly. It is not necessary to restructure the table for this."],
+        ["pivot", "I should reorder parts of the table to transfer the values of a variable into one column."],
         ["delete", "I delete duplicate data."],
         ["new", "I create new tables to store the attributes uniquely."],
         ["detailed", "I am adding additional columns to record the attributes in more detail."],
@@ -327,23 +341,23 @@ class Player(BasePlayer):
     )
 
     excel_difficult_steps1 = models.BooleanField(
-        label="<h5> Did you <b> replace individual values with new values </b> in the raw data? </h5>"
+        label="<h5> Is the processing step <b>remove duplicates</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
 
     excel_difficult_steps2 = models.BooleanField(
-        label="<h5> Did you <b> change column names </b> in the raw data?  </h5>"
+        label="<h5>  Is the processing step <b>remove rows with invalid values</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
 
     excel_difficult_steps3 = models.BooleanField(
-        label="<h5> Did you <b> delete duplicate entries </b> in the raw data?  </h5>"
+        label="<h5> Is the processing step <b>add column headers</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
 
     excel_difficult_steps4 = models.BooleanField(
-        label="<h5> Did you <b> split values from one column into several new columns </b> in the raw data? </h5>"
+       label="<h5> Is the processing step <b>resolve multiple headers</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
 
     excel_difficult_steps5 = models.BooleanField(
-        label="<h5> Did you <b> convert time units </b> in the raw data? </h5>"
+        label=" <h5> Is the processing step <b>split cells containing multiple values into new columns</b> necessary for this dataset to achieve a tidy format?</h5>"
     )
 
     excel_difficult_col1 = models.StringField(
