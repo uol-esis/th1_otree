@@ -181,9 +181,6 @@ class SecondTaskA(Page):
                 self.player.attention_failed = True
 
 
-
-
-
 class SecondTaskB(Page):
     form_model = 'player'
     form_fields = ['excel_difficult_problem1', 'excel_difficult_problem2',
