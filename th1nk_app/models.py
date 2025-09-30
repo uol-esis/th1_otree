@@ -177,7 +177,7 @@ class Player(BasePlayer):
     )
 
     data_attention_2 = models.IntegerField(
-            label="I am able to click ”strongly agree”.",
+            label="I am able to click ”Completely agree”.",
             choices= LIKERT_CHOICES,
             widget=widgets.RadioSelectHorizontal
     )
