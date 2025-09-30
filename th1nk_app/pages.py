@@ -63,8 +63,8 @@ class Intro(Page):
 
 class FirstTaskA(Page):
     form_model = 'player'
-    form_fields = ['manipulation_check', 'tool_easy_checkout', 'tool_easy_problem1', 'data_attention_3', 'tool_easy_problem2']
-    timeout_seconds = 600  # TODO hier 8 Minuten einstellen
+    form_fields = ['manipulation_check_A', 'tool_easy_checkout', 'tool_easy_problem1', 'data_attention_3', 'tool_easy_problem2']
+    timeout_seconds = 900  # 15 minutes
 
     def is_displayed(self):
         return self.player.treatment == 'A' and not self.player.attention_failed
@@ -100,11 +100,11 @@ class FirstTaskA(Page):
 
 class FirstTaskB(Page):
     form_model = 'player'
-    form_fields = ['manipulation_check', 'excel_easy_problem1', 'data_attention_7', 'excel_easy_problem2', 'excel_easy_problem4']
-    timeout_seconds = 600  # TODO hier 8 Minuten einstellen
+    form_fields = ['manipulation_check_B', 'excel_easy_problem1', 'data_attention_7', 'excel_easy_problem2', 'excel_easy_problem4']
+    timeout_seconds = 900  # 15 minutes
 
     def is_displayed(self):
-        return self.player.treatment == 'B'and not self.player.attention_failed
+        return self.player.treatment == 'B' and not self.player.attention_failed
 
     def vars_for_template(self):
         # Erste Zeile aus Excel als Beispiel
@@ -142,7 +142,7 @@ class SecondTaskA(Page):
         'data_attention_5', 'tool_difficult_col1'
     ]
 
-    timeout_seconds = 600  # TODO hier 8 Minuten einstellen
+    timeout_seconds = 1200  # 20 minutes
 
     def is_displayed(self):
         return self.player.treatment == 'A' and not self.player.attention_failed
@@ -156,7 +156,11 @@ class SecondTaskA(Page):
         correct_answers = {
             'tool_difficult_problem1': 'invalid characters',
             'tool_difficult_problem2': 'missing col names',
-            'tool_difficult_steps1' : False, 'tool_difficult_steps2' : True, 'tool_difficult_steps3': True, 'tool_difficult_steps4': False, 'tool_difficult_steps5': True,
+            'tool_difficult_steps1' : False,
+            'tool_difficult_steps2' : True,
+            'tool_difficult_steps3': True,
+            'tool_difficult_steps4': False,
+            'tool_difficult_steps5': False,
             'tool_difficult_col1': 'city'
         }
 
@@ -185,7 +189,7 @@ class SecondTaskB(Page):
     form_fields = ['excel_difficult_problem1', 'excel_difficult_problem2',
                    'excel_difficult_steps1',  'excel_difficult_steps2',  'excel_difficult_steps3',  'excel_difficult_steps4',  'excel_difficult_steps5',
                     'excel_difficult_col1', 'data_attention_6']
-    timeout_seconds = 600  # TODO hier 8 Minuten einstellen
+    timeout_seconds = 1200  # 20 minutes
 
     def is_displayed(self):
         return self.player.treatment == 'B' and not self.player.attention_failed
@@ -201,8 +205,8 @@ class SecondTaskB(Page):
             'excel_difficult_problem2': 'missing col names', 
             'excel_difficult_steps1': False,
             'excel_difficult_steps2': True,
-            'excel_difficult_steps3': False,
-            'excel_difficult_steps4': True,
+            'excel_difficult_steps3': True,
+            'excel_difficult_steps4': False,
             'excel_difficult_steps5': False,
             'excel_difficult_col1': 'city'
         }
@@ -222,10 +226,6 @@ class SecondTaskB(Page):
         for field, should_be_true in attention_checks.items():
             if getattr(self.player, field) != should_be_true:
                 self.player.attention_failed = True
-
-class TimeUp(Page):
-    form_model = 'player'
-    timeout_seconds = 25 # TODO hier 30 Sekunden einstellen
 
 class PostQuestionnaire(Page):
     form_model = 'player'
@@ -270,7 +270,6 @@ page_sequence = [
     Intro,
     FirstTaskA,
     FirstTaskB,
-    #TimeUp,
     SecondTaskA,
     SecondTaskB,
     Failure,
