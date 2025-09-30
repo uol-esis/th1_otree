@@ -39,11 +39,9 @@ LIKERT_CHOICES = [
 
 class Subsession(BaseSubsession):
     def creating_session(self):
-        #import itertools
         #A = Tool, B = Excel
         for p in self.get_players():
-            #p.treatment = random.choice(C.TREATMENT)
-            p.treatment = "A"
+            p.treatment = random.choice(C.TREATMENT)
 
 class Group(BaseGroup):
     pass
@@ -54,11 +52,11 @@ class Player(BasePlayer):
     attention_failed = models.BooleanField(initial=False)
 
     # Introduction
-    prolificID = models.IntegerField(label='Prolific ID')
-    age = models.IntegerField(label='Age')
+    prolificID = models.IntegerField(label='Please enter your Prolific ID:')
+    age = models.IntegerField(label='How old are you?')
     gender = models.StringField(
         choices=['male', 'female', 'diverse'],
-        label='Gender'
+        label='What is your gender?'
     )
     employment_status = models.StringField(
         choices=['Full-time employed',
@@ -179,7 +177,7 @@ class Player(BasePlayer):
     )
 
     data_attention_2 = models.IntegerField(
-            label="I am working intensively on this study.",
+            label="I am able to click ”strongly agree”.",
             choices= LIKERT_CHOICES,
             widget=widgets.RadioSelectHorizontal
     )
@@ -196,10 +194,19 @@ class Player(BasePlayer):
             widget=widgets.RadioSelect
     )
 #Manipulation check
-    manipulation_check = models.StringField(
+    manipulation_check_A = models.StringField(
             label="<h5> What is your main task in this part of the study? </h5>",
             choices=["To transform the dataset into a presentation with charts and figures.",
-                        "To restructure the dataset so that it is stored in a tidy format.",
+                        "To restructure the dataset using the provided tool to get a tidy table.",
+                        "To reduce the dataset so that only a small sample remains.",
+                        "To freely modify the dataset according to your own preferences, without following specific rules."],
+            widget=widgets.RadioSelect
+    )
+
+    manipulation_check_B = models.StringField(
+            label="<h5> What is your main task in this part of the study? </h5>",
+            choices=["To transform the dataset into a presentation with charts and figures.",
+                        "To restructure the dataset using Excel, for example, to get a tidy table.",
                         "To reduce the dataset so that only a small sample remains.",
                         "To freely modify the dataset according to your own preferences, without following specific rules."],
             widget=widgets.RadioSelect
@@ -220,7 +227,7 @@ class Player(BasePlayer):
     tool_easy_problem1 = models.StringField(choices= [
         ['false format', 'The values are not properly formatted to analyze them.'],
         ['multiple attributes' , 'The values depend on variables, each spans multiple columns.'],
-        ['not normalized', 'Nested structures are always not normalized and therefore not applicable for visualization tools.'],
+        ['not normalized', 'The nested structure of the variables is too simple, so it can only be cleaned up by deleting columns.'],
         ['flat structure','The structure is flat and clean, but the cells content too much information which cannot be processed accurately']
         ],
         label='<h5> Why is the nested structure of the dataset problematic? </h5>',
@@ -229,9 +236,9 @@ class Player(BasePlayer):
 
     tool_easy_problem2 = models.StringField(choices= [
        ['complex structure' ,'The structure got more complex.'],
-        ['one col attributes', 'Each attribute now consists of only one column.'],
         ['duplicates', 'Many duplicates were created.'],
-        ['changed format', 'The data format has changed.']
+        ['changed format', 'The data format has changed.'],
+        ['one col attributes', 'Each attribute now consists of only one column.']
         ],
         label='<h5> What has changed in the transformation process? </h5>',
         widget=widgets.RadioSelect
@@ -276,7 +283,7 @@ class Player(BasePlayer):
 
     tool_difficult_col1 = models.StringField(
         label="<h5> Based on the data, which column names are most suitable for the transformed data? </h5>",
-        choices=[["city", "City,  Means of transport, Delay due to, Minutes"],
+        choices=[["city", "City,  Means of transport, Reason for delay, Minutes"],
             ["location", "Location, Vehicle, Destination, Duration"],
             ["area", "Area, Means of transport, Cause, Time, Duration"],
            ["accident", "Accident location, Participant, Cause, Rescue time"]
@@ -362,7 +369,7 @@ class Player(BasePlayer):
 
     excel_difficult_col1 = models.StringField(
         label="<h5> Based on the data, which column names are most suitable for the transformed data? </h5>",
-        choices=[["city", "City,  Means of transport, Delay due to, Minutes"],
+        choices=[["city", "City,  Means of transport, Reason for delay, Minutes"],
             ["location", "Location, Vehicle, Destination, Duration"],
             ["area", "Area, Means of transport, Cause, Time, Duration"],
            ["accident", "Accident location, Participant, Cause, Rescue time"]
