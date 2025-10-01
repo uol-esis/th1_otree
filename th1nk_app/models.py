@@ -16,23 +16,23 @@ class C(BaseConstants):
     DATA_EASY = pd.read_excel(EXCEL_FILE_EASY)
 
     LIKERT_CHOICES = [
-        (7, "Completely disagree"),
-        (6, "Strongly disagree"),
-        (5, "Disagree"),
+        (7, "Strongly disagree"),
+        (6, "Disagree"),
+        (5, "Rather disagree"),
         (4, "Neutral"),
-        (3, "Agree"),
-        (2, "Strongly agree"),
-        (1, "Completely agree"),
+        (3, "Rather agree"),
+        (2, "Agree"),
+        (1, "Strongly agree"),
     ]
 
 LIKERT_CHOICES = [
-    (7, "Completely disagree"),
-    (6, "Strongly disagree"),
-    (5, "Disagree"),
+    (7, "Strongly disagree"),
+    (6, "Disagree"),
+    (5, "Rather disagree"),
     (4, "Neutral"),
-    (3, "Agree"),
-    (2, "Strongly agree"),
-    (1, "Completely agree"),
+    (3, "Rather agree"),
+    (2, "Agree"),
+    (1, "Strongly agree"),
 ]
 
 
@@ -41,7 +41,8 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         #A = Tool, B = Excel
         for p in self.get_players():
-            p.treatment = random.choice(C.TREATMENT)
+            #p.treatment = random.choice(C.TREATMENT)
+            p.treatment = 'A'
 
 class Group(BaseGroup):
     pass
@@ -177,7 +178,7 @@ class Player(BasePlayer):
     )
 
     data_attention_2 = models.IntegerField(
-            label="I am able to click ”Completely agree”.",
+            label="I am able to click “Strongly agree”.",
             choices= LIKERT_CHOICES,
             widget=widgets.RadioSelectHorizontal
     )
