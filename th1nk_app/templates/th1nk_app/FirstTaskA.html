@@ -1,0 +1,73 @@
+{% block content %}
+<h4>Let's start with the first task:</h4>
+<div style="display:flex; flex-direction:column; gap:30px;">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        background-color: #f9f9ff;
+        border: 1px solid #cbd5e0;
+        border-radius: 12px;
+        padding: 20px;
+        max-width: 600px;
+        margin: 20px auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    ">
+        <div style="
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #3182ceb0;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 18px;
+    ">
+        i
+    </div>
+        <p>
+            Remember!
+            A tidy data record has to satisfy the following requirements to be database compliant:
+            <ul>
+                <li>Every column is a variable</li>
+                <li>Every row is an observation</li>
+                <li>Every cell is a single value</li>
+            </ul>
+        </p>
+        <p>For example this table satisfy all requirements:</p>
+        <img width=400 src="/static/data/tidy_data.png"/>
+    </div>
+
+     <p>
+         In this exercise, you will tidy a small dataset so that it is ready for analysis.
+         The dataset contains a header that is not yet in a tidy format. Using the provided tool, you can transform the data to comply the requirements.
+         Pay close attention to the preview table – it will help you answer the upcoming questions.
+    </p>
+
+    <p>Here is a small snippet of the data.</p>
+    <img src="/static/data/city_snippet.png"/>
+
+    <p>Step 1: Use the tool in the frame below.</p>
+    <p>Step 2: Download the file <a href="{% static 'data/city_data.xlsx' %}" download>city_data.xlsx</a>.</p>
+    <p>Step 3: Upload the file into the tool. </p>
+    <p>Step 4: Click the "Generate" button to transform the data automatically.</p>
+    <p>Step 5: Look at the preview table carefully. This shows how the tool transformed the data. You do not need to finally upload the file within the tool.</p>
+    <p>Step 6: Answer the following questions based on the preview table.</p>
+
+    <div style="width:100%; position:relative;">
+        <iframe src="https://th1nk.pg-doener-dev.virt.uni-oldenburg.de"
+            style="width:120%; height:600px; position:relative; left:50%; transform:translateX(-50%);" frameborder="0">
+        </iframe>
+    </div>
+
+    <div>
+        {{ formfields }}
+    </div>
+    <div style="margin-top:30px;">
+        {{ next_button }}
+    </div>
+</div>
+{% endblock %}
