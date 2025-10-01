@@ -40,7 +40,7 @@ class Player(BasePlayer):
     attention_failed = models.BooleanField(initial=False)
 
     # Introduction
-    prolificID = models.IntegerField(label='Prolific ID')
+    prolificID = models.StringField(label='Prolific ID')
     age = models.IntegerField(label='Age')
     gender = models.StringField(
         choices=['male', 'female', 'diverse'],
