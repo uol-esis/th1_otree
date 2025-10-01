@@ -42,7 +42,7 @@ class Subsession(BaseSubsession):
         #A = Tool, B = Excel
         for p in self.get_players():
             #p.treatment = random.choice(C.TREATMENT)
-            p.treatment = 'B'
+            p.treatment = 'A'
 
 class Group(BaseGroup):
     pass
