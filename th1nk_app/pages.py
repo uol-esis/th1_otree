@@ -9,6 +9,7 @@ from .models import C, Subsession, Group, Player
 
 class Introduction(Page):
     form_model = 'player'
+    form_fields = ['prolificID']
 
     def is_displayed(self):
         return not self.player.attention_failed
@@ -18,6 +19,9 @@ class Introduction(Page):
         if 'start_time' not in self.player.participant.vars:
             self.player.participant.vars['start_time'] = time.time()
         return {}
+
+    def get_form_fields(self):
+        return ['prolificID']
 
 class PreQuestionnaire(Page):
     form_model = 'player'
@@ -232,9 +236,9 @@ class PostQuestionnaire(Page):
 
     def get_form_fields(self):
         if self.player.treatment == 'A':
-            return ['post_experience', 'difficulties', 'satisfaction','prolificID', 'age', 'gender', 'employment_status', 'job_type', 'education']
+            return ['post_experience', 'difficulties', 'satisfaction', 'age', 'gender', 'employment_status', 'job_type', 'education']
         else:
-            return ['difficulties','prolificID', 'age', 'gender', 'employment_status', 'job_type', 'education']
+            return ['difficulties', 'age', 'gender', 'employment_status', 'job_type', 'education']
 
 class ThankYou(Page):
     form_model = 'player'
