@@ -104,7 +104,7 @@ class FirstTaskA(Page):
 
 class FirstTaskB(Page):
     form_model = 'player'
-    form_fields = ['manipulation_check_B', 'excel_easy_problem1', 'data_attention_7', 'excel_easy_problem2', 'excel_easy_problem4']
+    form_fields = ['manipulation_check_B', 'excel_easy_problem1', 'data_attention_3', 'excel_easy_problem2', 'excel_easy_problem4']
     timeout_seconds = 900  # 15 minutes
 
     def is_displayed(self):
@@ -118,12 +118,12 @@ class FirstTaskB(Page):
     def before_next_page(self):
         correct_answers = {
             'excel_easy_problem1': 'C',
-            'excel_easy_problem2': 'assignment',
+            'excel_easy_problem2': 'multiple attributes',
             'excel_easy_problem4': 'pivot'
         }
 
         attention_checks = {
-            'data_attention_7': 'rows',
+            'data_attention_3': 'third',
         }
 
         #normal questions

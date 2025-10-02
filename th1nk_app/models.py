@@ -297,21 +297,22 @@ class Player(BasePlayer):
     excel_easy_problem1 = models.StringField(
             label="<h5> How would you restructure this data so that it complies with the requirements for a tidy format? </h5>",
             choices=[
-            ["A", "District, Gender, Age from, Age to, Amount "],
-            ["B", "Gender, Age and District organized in Rows, Amounts assigned to columns"],
-            ["C", "District, Gender, Age, Amount "],
-            ["D", "Simple listing of values without specific column labels"],
+            ["A" ,mark_safe(' <img src="/static/data/false_1.png" width="400" style="margin:15px;"> ')],
+        ["B",mark_safe(' <img src="/static/data/false_2.png" width="400" style="margin:15px;"> ')],
+        ["C", mark_safe(' <img src="/static/data/correct.png" width="400" style="margin:15px;"> ')],
+        ["D", mark_safe(' <img src="/static/data/false_3.png" width="400" style="margin:15px;" > ')],
             ],
             widget=widgets.RadioSelect
     )
 
     excel_easy_problem2 = models.StringField(
-            label="<h5> What is the main problem in the given dataset? </h5>",
+            label="<h5> Why is the nested structure of the dataset problematic?  </h5>",
             choices=[
-            ["headers", "Missing column headers"],
-            ["delimiters", "Inconsistent use of delimiters"],
-            ["assignment", "Assignment of values to multiple variables"],
-            ["keys", "Duplicate primary keys"],
+             ['false format', 'The values are not properly formatted to analyze them.'],
+            ['multiple attributes' , 'The values depend on variables, each spans multiple columns.'],
+            ['not normalized', 'The nested structure of the variables is too simple, so it can only be cleaned up by deleting columns.'],
+            ['flat structure','The structure is flat and clean, but the cells content too much information which cannot be processed accurately']
+       
             ],
             widget=widgets.RadioSelect
     )
